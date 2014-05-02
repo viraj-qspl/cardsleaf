@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<TITLE>Dynamic Drive DHTML Scripts- Smooth Navigational Menu</TITLE>
+<META name="description" content="A folding DHTML menu tree with persistance feature, created via cookies.">
+<META name="keywords" content="DHTML, folding menu tree script, DHTML tutorial, free, JavaScript,persistance">
+<LINK rel="stylesheet" type="text/css" href="./Dynamic Drive DHTML Scripts- Smooth Navigational Menu_files/ddsmoothmenu.css">
+<SCRIPT type="text/javascript" src="./Dynamic Drive DHTML Scripts- Smooth Navigational Menu_files/jquery.min.js"></SCRIPT>
+<SCRIPT type="text/javascript" src="./Dynamic Drive DHTML Scripts- Smooth Navigational Menu_files/ddsmoothmenu.js"></SCRIPT>
+<SCRIPT type="text/javascript">
+ddsmoothmenu.init({
+	mainmenuid: "smoothmenu1", //menu DIV id
+	orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+	classname: 'ddsmoothmenu', //class added to menu's outer DIV
+	//customtheme: ["#1c5a80", "#18374a"],
+	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+})
+
+ddsmoothmenu.init({
+	mainmenuid: "smoothmenu2", //Menu DIV id
+	orientation: 'v', //Horizontal or vertical menu: Set to "h" or "v"
+	classname: 'ddsmoothmenu-v', //class added to menu's outer DIV
+	//customtheme: ["#804000", "#482400"],
+	contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+})
+
+ddsmoothmenu.init({
+	mainmenuid: "smoothmenu-ajax",
+	orientation: 'h',
+	classname: 'ddsmoothmenu',
+	customtheme: ["#1c5a80", "#18374a"], //override default menu CSS background values? Uncomment: ["normal_background", "hover_background"]
+	contentsource: ["smoothcontainer", "smoothmenu.htm"] //"markup" or ["container_id", "path_to_menu_file"]
+})
+
+</SCRIPT>
+<LINK rel="stylesheet" type="text/css" href="./Dynamic Drive DHTML Scripts- Smooth Navigational Menu_files/widget12.css" media="">
+</HEAD>
+<BODY>
+<DIV id="smoothmenu1" class="ddsmoothmenu">
+<UL>
+<LI><A href="http://www.dynamicdrive.com/">Item 1</A></LI>
+<LI style="z-index: 100; "><A href="#" style="padding-right: 23px; " class="">Folder 0 </A>
+  <UL style="top: 30px; left: 0px; width: 171px; visibility: visible; display: none; ">
+  <LI><A href="#">Sub Item 1.1</A></LI>
+  <LI><A href="#">Sub Item 1.2</A></LI>
+  <LI><A href="#">Sub Item 1.3</A></LI>
+  <LI><A href="#">Sub Item 1.4</A></LI>
+  <LI><A href="#">Sub Item 1.2</A></LI>
+  <LI><A href="#">Sub Item 1.3</A></LI>
+  <LI><A href="#">Sub Item 1.4</A></LI>
+  </UL>
+</LI>
+<LI style="z-index: 99; "><A href="#" style="padding-right: 23px; " class="">Folder 1 </A>
+  <UL style="top: 30px; left: 0px; width: 171px; visibility: visible; display: none; ">
+  <LI><A href="#">Sub Item 1.1</A></LI>
+  <LI><A href="#">Sub Item 1.2</A></LI>
+  <LI><A href="#">Sub Item 1.3</A></LI>
+  <LI><A href="#">Sub Item 1.4</A></LI>
+  <LI><A href="#">Sub Item 1.2</A></LI>
+  <LI><A href="#">Sub Item 1.3</A></LI>
+  <LI><A href="#">Sub Item 1.4</A></LI>
+  </UL>
+</LI>
+<LI><A href="#">Item 3</A></LI>
+<LI style="z-index: 98; "><A href="#" style="padding-right: 23px; " class="">Folder 2 </A>
+  <UL style="top: 30px; left: 0px; width: 171px; visibility: visible; display: none; ">
+  <LI><A href="#">Sub Item 2.1</A></LI>
+  <LI style="z-index: 97; "><A href="#" class="">Folder 2.1 </A>
+    <UL style="top: 0px; left: 171px; width: 171px; visibility: visible; display: none; ">
+    <LI><A href="#">Sub Item 2.1.1</A></LI>
+    <LI><A href="#">Sub Item 2.1.2</A></LI>
+    <LI style="z-index: 96; "><A href="#" class="">Folder 3.1.1 </A>
+		<UL style="top: 0px; left: 171px; width: 171px; visibility: visible; display: none; ">
+    		<LI><A href="#">Sub Item 3.1.1.1</A></LI>
+    		<LI><A href="#">Sub Item 3.1.1.2</A></LI>
+    		<LI><A href="#">Sub Item 3.1.1.3</A></LI>
+    		<LI><A href="#">Sub Item 3.1.1.4</A></LI>
+    		<LI><A href="#">Sub Item 3.1.1.5</A></LI>
+		</UL>
+    </LI>
+    <LI><A href="#">Sub Item 2.1.4</A></LI>
+    </UL>
+  </LI>
+  </UL>
+</LI>
+<LI><A href=" #">Item 4</A></LI>
+</UL>
+<BR style="clear: left">
+</DIV>
+
+</BODY></HTML>

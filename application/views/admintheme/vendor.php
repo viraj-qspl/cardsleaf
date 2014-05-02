@@ -1,0 +1,142 @@
+<script language="javascript" type="text/javascript">
+
+function validation()
+{
+   if(document.getElementById('vendor_email').value.search(/\S/) == "-1")
+   {
+      alert("Please Enter Vendor Email.");
+      document.getElementById('vendor_email').focus();
+	  return false;
+   }
+   else
+   {
+      if (echeck(document.getElementById('vendor_email').value)==false){
+		document.getElementById('vendor_email').value="";
+		document.getElementById('vendor_email').focus();
+		return false;
+	}
+      
+   }
+   
+   
+   if(document.getElementById('pass').value.search(/\S/) == "-1")
+   {
+      alert("Please Enter Password");
+      document.getElementById('pass').focus();
+	  return false;
+   }
+
+
+	
+
+
+}
+
+function echeck(str) 
+{
+	var at="@"
+	var dot="."
+	var lat=str.indexOf(at)
+	var lstr=str.length
+	var ldot=str.indexOf(dot)
+
+		if (str.indexOf(at)==-1){
+		   alert("Invalid Email")
+		   return false;
+		}
+
+		if (str.indexOf(at)==-1 || str.indexOf(at)==0 || str.indexOf(at)==lstr){
+		   alert("Invalid Email;")
+		   return false;
+		}
+
+		if (str.indexOf(dot)==-1 || str.indexOf(dot)==0 || str.indexOf(dot)==lstr){
+		    alert("Invalid Email")
+	    	return false;
+		}
+
+		 if (str.indexOf(at,(lat+1))!=-1){
+		    alert("Invalid Email")
+		    return false;
+		 }
+
+		 if (str.substring(lat-1,lat)==dot || str.substring(lat+1,lat+2)==dot){
+		    alert("Invalid E-mail")
+		   return false;
+		 }
+
+		 if (str.indexOf(dot,(lat+2))==-1){
+		    alert("Invalid Email")
+		    return false;
+		 }
+
+		 if (str.indexOf(" ")!=-1){
+		    alert("Invalid Email")
+		    return false;
+		 }
+
+ 		 return true;					
+}
+</script>
+
+<div class="clear"></div>
+<?php if($this->session->userdata('success_msg')) { ?>
+<div id="success" class="info_div" style="margin-left:8px;margin-right:8px;margin-bottom:5px;">
+	<span class="ico_success"><?php echo $this->session->userdata('success_msg'); ?></span> 
+</div>
+<?php 
+$this->session->unset_userdata('success_msg');
+} 
+?>
+<?php if($this->session->userdata('error_msg')) { ?>
+<div id="fail" class="info_div" style="margin-left:8px;margin-right:8px;margin-bottom:5px;">
+	<span class="ico_cancel"><?php echo $this->session->userdata('error_msg'); ?></span>
+</div>
+<?php 
+$this->session->unset_userdata('error_msg');
+} 
+?>
+<form name="frmUser" id="frmUser" method="post" onsubmit="return validation();" action="">
+<div class="box_bg">
+<div class="clear"></div>
+<div style="margin: 27px 5px;">
+<div class="clear"></div>
+<div class="arti">Vendor Registration</div>
+<div class="clear"></div>
+<div class="white_box2" style="width:97%;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="level">
+<tr>
+    <td width="18%">Email <span style="color: #eb8207;">* </span> </td>
+    <td width="82%"><input name="vendor_email" id="vendor_email" type="text" value="" class="textfield2" style="width:300px;" /></td>
+</tr>
+
+<tr>
+    <td>Password <span style="color: #eb8207;">* </span> </td>
+    <td><input name="pass" id="pass" type="password" value="welcome" class="textfield2" style="width:300px;" /></td>
+</tr>
+
+<tr>
+    <td>Zone:<span style="color: #eb8207;">* </span> </td>
+    <td>
+		<select name="zone" id="zone" class="textfield2" style="width:300px;">
+			<option value="N">North</option>
+			<option value="S">South</option>
+			<option value="E">East</option>
+			<option value="W">West</option>
+		</select>
+	</td>
+</tr>
+
+
+
+<tr>
+    <td><span style="color: #eb8207;"> </span> </td>
+    <td><input type="submit" name="submit" value="submit" class="btn2"></td>
+</tr>
+</table>
+</div>
+
+<div class="clear"></div>
+</div>
+</div>
+</form>

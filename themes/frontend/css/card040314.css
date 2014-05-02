@@ -1,0 +1,649 @@
+/* -----------------vertical CSS--------------------- */
+.leftcardpl {
+	width: 470px;
+	margin: 0;
+	float: left;
+}
+.rightcardpl {
+	width: 380px; 
+	margin: 0;
+	float: right;
+}
+.cardview {
+	width: 464px;
+	height: 570px;
+	float: left;
+	margin: 0 0 10px 0;
+	position: relative;
+}
+.cardview .view1 {
+	width: 379px;
+	height: 551px;
+	background: url(../images/page01.png) center top no-repeat;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.cardview .view2 {
+	width: 464px;
+	height: 570px;
+	background: url(../images/page02.png) center top no-repeat;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.cardview .view3 {
+	width: 464px;
+	height: 570px;
+	background: url(../images/page03.png) center top no-repeat;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.cardview .view4 {
+	width: 372px;
+	height: 544px;
+	background: url(../images/page04.png) center top no-repeat;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.cardview .view1 .main_displaybox, .cardview .view2 .main_displaybox, .cardview .view3 .main_displaybox, .cardview .view4 .main_displaybox {
+	width: 360px;
+	height: 504px;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+}
+.cardview .view1 .main_displaybox {
+	top: 34px;
+	left: 8px;	
+}
+.cardview .view2 .main_displaybox {
+	top: 30px;
+	left: 3px;
+}
+.cardview .view3 .main_displaybox {
+	top: 28px;
+	left: 96px;
+}
+.cardview .view4 .main_displaybox {
+	top: 30px;
+	left: 3px;
+}
+.lastlogo {
+	width: 135px;
+	height: auto;
+	background: #fff;
+	margin: 365px auto 0 auto;
+	text-align: center;
+	display: table;
+}
+.logoview {
+	margin: 0 0 5px 0;
+}
+.logoview img {
+	width: 100px;
+	display: block;
+	margin: 0 auto;
+}
+.lastlogo a {
+	font: normal 11px/14px Arial, Helvetica, sans-serif;
+	color: #777777;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	display: block;
+	text-decoration: none;
+	cursor: pointer;
+}
+.preview_card {
+	width: 280px;
+	margin: 0 auto;
+}
+.preview_card ul {
+	padding: 0;
+	margin: 0;
+}
+.preview_card ul li{
+	padding: 0;
+	margin: 0 10px 0 0;
+	list-style-type: none;
+	float: left;
+	width: 60px;
+	height: 70px;
+	border: 1px solid #dddddd;
+	position: relative;
+	cursor: pointer;
+}
+.preview_card ul li:hover, .preview_card ul li.active {
+	border: 1px solid #0097d6;
+}
+.preview_card ul li:last-child {
+	margin: 0;
+}
+.preview_card ul li a {
+	display: block;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	cursor: pointer;
+}
+.photoarrow {
+	display: none;
+}
+.preview_card ul li:hover .photoarrow, .preview_card ul li.active .photoarrow {
+	width: 13px;
+	height: 9px;
+	display: block;
+	background: url(../images/photoarrow.png) center bottom no-repeat;
+	position: absolute;
+	top: -8px;
+	left: 25px;
+}
+.uploadbase {
+	width: 300px;
+	height: auto;
+	background: #ebebeb;
+	border: 1px solid #ddd;
+	padding: 20px;
+	margin: 30px 0 0 0;
+	overflow: hidden;
+	position: relative;
+}
+.uploadheading {
+	font: normal 22px/30px Arial, Helvetica, sans-serif;
+	color: #333;
+	padding: 0 0 10px 0;
+	margin: 0 0 10px 0;
+	border-bottom: 1px solid #ddd;
+	font-style: italic;
+}
+.uploadbase p {
+	font: normal 12px/18px Arial, Helvetica, sans-serif;
+	color: #909090;
+	padding: 0;
+	margin: 0 0 20px 0;
+}
+.uploadtitle {
+	font: bold 12px/18px Arial, Helvetica, sans-serif;
+	color: #616161;
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+.addimagebox {
+	width: 80px;
+	height: 80px;
+	display: block;
+	background: #fff;
+	border: 1px solid #ddd;
+	margin: 0 10px 10px 0;
+	overflow: hidden;
+	cursor: pointer;
+	float: left;
+}
+.uploadoption {
+	width: 100%;
+	margin: 0;
+	float: left;	
+}
+.uploadoption ul {
+	padding: 0;
+	margin: 0;
+}
+.uploadoption ul li {
+	padding: 0;
+	margin: 0 5px;
+	list-style-type: none;
+	float: left;
+	font: normal 12px/18px Arial, Helvetica, sans-serif;
+	color: #777;
+}
+.uploadoption ul li a {
+	font: normal 12px/18px Arial, Helvetica, sans-serif;
+	color: #0097d6;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+	cursor: pointer;
+}
+.uploadoption ul li a:hover {
+	color: #000;
+}
+.cardtextfield {
+	width: 288px;
+	height: 34px;
+	background: #fff;
+	border: 1px solid #ddd;
+	outline: none;
+	font: normal 12px/34px Arial, Helvetica, sans-serif;
+	color: #777;
+	text-align: left;
+	padding: 0 5px;
+	margin: 0;
+	display: block;
+	overflow: hidden;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-ms-border-radius: 4px;
+ 	-o-border-radius: 4px;
+	-xv-border-radius: 4px;
+	-khtml-border-radius: 4px;
+}
+.cardtextarea {
+	width: 288px;
+	height: 80px;
+	background: #fff;
+	border: 1px solid #ddd;
+	outline: none;
+	font: normal 12px/34px Arial, Helvetica, sans-serif;
+	color: #777;
+	text-align: left;
+	padding: 0 5px;
+	margin: 0;
+	resize: none;
+	display: block;
+	overflow: hidden;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-ms-border-radius: 4px;
+ 	-o-border-radius: 4px;
+	-xv-border-radius: 4px;
+	-khtml-border-radius: 4px;
+}
+input.cardbutton {
+	width: auto;
+	height: 40px;
+	background: #0097d6;
+	border: 1px solid #0097d6;
+	outline: none;
+	font: bold 16px/40px Arial, Helvetica, sans-serif;
+	color: #fff;
+	text-align: center;
+	padding: 0 20px;
+	margin: 0 15px 0 0;
+	display: inline-block;
+	overflow: hidden;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-ms-border-radius: 20px;
+ 	-o-border-radius: 20px;
+	-xv-border-radius: 20px;
+	-khtml-border-radius: 20px;
+}
+input.cardbutton:hover {
+	background: #fff;
+	border: 1px solid #0097d6;
+	color: #0097d6;
+}
+.closepop {
+	position: absolute;
+	top: 4px;
+	right: 10px;
+	z-index: 1;
+}
+.closepop a {
+	content: "×";
+	display: block;
+	text-decoration: none;
+	cursor: pointer;
+}
+.xicon {
+	font: bold 18px/20px Arial, Helvetica, sans-serif;
+	color: #333;
+	text-decoration: inherit;
+}
+/* -----------------vertical CSS end--------------------- */
+
+
+
+
+/* ----------------------------horizontal CSS--------------------------------------------------- */
+.landscape_left {
+	width: 600px;
+	margin: 0;
+	float: left;
+}
+.landscape_cardview {
+	width: 594px;
+	height: 464px;
+	float: left;
+	margin: 0 0 10px 0;
+	position: relative;
+}
+.landscape_cardview .view1 {
+	width: 545px;
+	height: 370px;
+	background: url(../images/page01-h.png) center top no-repeat;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.landscape_cardview .view2 {
+	width: 594px;
+	height: 464px;
+	background: url(../images/page02-h.png) center top no-repeat;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.landscape_cardview .view3 {
+	width: 569px;
+	height: 464px;
+	background: url(../images/page03-h.png) center top no-repeat;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.landscape_cardview .view4 {
+	width: 543px;
+	height: 370px;
+	background: url(../images/page04-h.png) center top no-repeat;
+	display: block;
+	margin: 0 auto;
+	position: relative;
+}
+.landscape_cardview .view1 .main_displaybox, .landscape_cardview .view2 .main_displaybox, .landscape_cardview .view3 .main_displaybox, .landscape_cardview .view4 .main_displaybox {
+	width: 504px;
+	height: 360px;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+}
+.landscape_cardview .view1 .main_displaybox {
+	top: 3px;
+	left: 4px;	
+}
+.landscape_cardview .view2 .main_displaybox {
+	top: 3px;
+	left: 31px;
+}
+.landscape_cardview .view3 .main_displaybox {
+	top: 97px;
+	left: 32px;
+}
+.landscape_cardview .view4 .main_displaybox {
+	top: 3px;
+	left: 33px;
+}
+.landscape_left .preview_card ul li {
+	height: 50px;
+}
+.lastlogo2 {
+	width: 135px;
+	height: auto;
+	background: #fff;
+	margin: 270px auto 0 auto;
+	text-align: center;
+	display: table;
+}
+.logoview2 {
+	margin: 0 0 5px 0;
+}
+.logoview2 img {
+	width: 100px;
+	display: block;
+	margin: 0 auto;
+}
+.lastlogo2 a {
+	font: normal 11px/14px Arial, Helvetica, sans-serif;
+	color: #777777;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+	display: block;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+
+/*----------------21-02-2014--------------------------------*/
+.uploadcon_base {
+	width: 100%;
+	height: 774px;
+	display: block;
+	/*background: url(../images/bg_black.png) center top repeat;*/
+	position: absolute;
+	top: 34px;
+	left: 0;
+	z-index: 1000;	
+}
+.midbox {
+	width: 1000px;
+	height: auto;
+	padding: 10px 0;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.uploadcon {
+	width: 400px;
+	height: auto;
+	background: #fff;
+	border: 6px solid #00d8ff;
+	padding: 25px;
+	text-align: center;
+	margin: 210px auto 20px auto;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-ms-border-radius: 5px;
+ 	-o-border-radius: 5px;
+	-xv-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	box-shadow: 0 3px 6px 0 #000;
+	position: relative;
+	
+}
+#image_file {
+	width: 330px;
+	height: 34px;
+	background: #fff;
+	border: 1px solid #ccc;
+	outline: none;
+	display: block;
+	margin: 0 auto 20px auto;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-ms-border-radius: 5px;
+ 	-o-border-radius: 5px;
+	-xv-border-radius: 5px;
+	-khtml-border-radius: 5px;
+}
+/*-----------------------27-02-2014--new popup design----------------------------*/
+.uploadtxt_base {
+	width: 100%;
+	height: 990px;
+	display: block;
+	/*background: url(../images/bg_black.png) center top repeat;*/
+	position: absolute;
+	top: 44px;
+	left: 0;
+	z-index: 1000;	
+}
+.uploadtxt {
+	width: 600px;
+	height: auto;
+	background: #fff;
+	border: 6px solid #00d8ff;
+	padding: 15px;
+	text-align: center;
+	margin: 210px auto 20px auto;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-ms-border-radius: 5px;
+ 	-o-border-radius: 5px;
+	-xv-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	box-shadow: 0 3px 6px 0 #000;
+	position: relative;
+}
+.optiondiv {
+	width: 96.8%;
+	height: auto;
+	padding: 10px 5px 0 5px;
+	margin: 0 0 10px 0;
+	float: left;
+	background: #eee;
+}
+.optiondiv ul {
+	padding: 0;
+	margin: 0;
+}
+.optiondiv ul li {
+	padding: 0;
+	margin: 0 10px 10px 0;
+	list-style-type: none;
+	float: left;
+	
+}
+.optiondiv ul li:nth-child(1) {
+	width: 40%;
+}
+.optiondiv ul li:nth-child(2) {
+	width: 15%;
+}
+.optiondiv ul li:nth-child(3) {
+	width: 18%;
+}
+.optiondiv ul li:nth-child(4) {
+	width: 18%;
+}
+.textleft001 {
+	width: 100%;
+	float: left;
+	margin: 0 0 5px 0;
+	font: bold 12px/18px Arial, Helvetica, sans-serif;
+	color: #333;
+	text-align: left;
+}
+select.boxdrop {
+	width: 210px;
+	height: 22px;
+	background: #fff;
+	border: 1px solid #ccc;
+	outline: none;
+	font: normal 12px/16px Arial, Helvetica, sans-serif;
+	color: #777;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	float: left;
+}
+.divholder {
+	width: 70px;
+	height: 22px;
+	background: #fff;
+	border: 1px solid #ccc;
+	margin: 0;
+	display: inline;
+	float: left;
+}
+input.text_drop_field {
+	width: 40px;
+	height: 22px;
+	background: none;
+	border: 0;
+	outline: none;
+	font: normal 12px/16px Arial, Helvetica, sans-serif;
+	color: #777;
+	text-align: left;
+	padding: 0;
+	margin: 0;
+	float: left;
+}
+.colorpicbox {
+	width: 22px;
+	height: 22px;
+	background: #b1eb00;
+	border-left: 1px solid #ccc;
+	display: block;
+	float: right;
+	cursor: pointer;
+}
+.textareatxebox {
+	width: 480px;
+	height: 200px;
+	background: #fff;
+	border: 1px solid #ccc;
+	display: block;
+	resize: none;
+	padding: 5px;
+	margin: 10px auto;
+	display: block;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-ms-border-radius: 3px;
+ 	-o-border-radius: 3px;
+	-xv-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	/*overflow-y: scroll;*/
+}
+.submitbtn00 {
+	width: auto;
+	height: 30px;
+	background:url(../images/button.png) left top repeat-x;
+	border: 0;
+	outline: none;
+	font-family: 'MyriadProRegular';
+	font-size: 18px;
+	line-height: 30px;
+	color:#fefefe;
+	padding: 0 16px;
+	margin: 10px auto;
+	text-transform:uppercase;
+    border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-ms-border-radius: 3px;
+ 	-o-border-radius: 3px;
+	-xv-border-radius: 3px;
+	-khtml-border-radius: 3px;
+	cursor: pointer;
+	overflow: hidden;
+}
+.note {
+	margin: 0 0 10px 60px;
+	font: normal 12px/18px Arial, Helvetica, sans-serif;
+	color: #999;
+	text-align: left;
+}
+div.spinner {
+	position: relative;
+	width: 16px;
+	height:22px;
+	float: left;
+	margin: 0;
+}
+div>span.spinnerup {
+	position: absolute;
+	right:0;
+	top: 1px;
+	width: 16px;
+	height:10px;
+	font-size: 12px;
+	line-height: 10px;
+	cursor:pointer;
+	display: block;
+}
+div>span.spinnerdn {
+	position: absolute;
+	right:0;
+	bottom: 1px;
+	width: 16px;
+	height:10px;
+	font-size: 12px;
+	line-height: 10px;
+	cursor:pointer;
+	display: block;
+}
+
+
+

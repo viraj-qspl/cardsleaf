@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'DakotaRegular';
+    src: url('../fonts/dakota-regular.eot');
+    src: url('../fonts/dakota-regular.eot') format('embedded-opentype'),
+         url('../fonts/dakota-regular.woff') format('woff'),
+         url('../fonts/dakota-regular.ttf') format('truetype'),
+         url('../fonts/dakota-regular.svg#DakotaRegular') format('svg');
+}
