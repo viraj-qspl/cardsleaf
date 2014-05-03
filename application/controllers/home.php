@@ -21,7 +21,13 @@ class Home extends CI_Controller
 	{
 	    if(isMemberLoggedIn()) 
 	    {
-		 redirect("cards/layout");
+
+		/*if($this->session->userdata('pic_id')!='')
+			redirect($this->config->item('base_url').'cards/createPicture');
+		 else */
+			redirect("cards/selectType");
+		
+		
 	    }
 	    $data["allCountry"] = $this->mcountry->getCountry();
 	    $data["site_title"] = 'Cardsleaf';
@@ -32,7 +38,7 @@ class Home extends CI_Controller
 	{
 	    if(isMemberLoggedIn())
 	    {
-	       redirect("cards/layout");
+	       redirect("cards/selectType");
 	    }
 		$data["site_title"] = 'Sign Up';
 		//$data["allCountry"] = $this->mcountry->getCountry();
@@ -83,9 +89,13 @@ class Home extends CI_Controller
 	{
 	   $data['size'] = $this->uri->segment(3) ? $this->uri->segment(3) : '';
 	   
+	   
+	  
+	   
 	   if(isMemberLoggedIn())
-	    {
-		redirect("cards/upload_pictures/".$data['size']);
+	    {		
+			//redirect("cards/upload_pictures/".$data['size']);
+			redirect("cards/selectType/");
 	    }
 	    
 	    $data["site_title"] = 'Cardsleaf :: SignIn';
@@ -99,10 +109,14 @@ class Home extends CI_Controller
 	   
 	   if(isMemberLoggedIn())
 	    {
-		if($this->session->userdata('img_id') && $this->session->userdata('img_id')!='')
-			redirect("cards/upload_pictures/".$gdata['size']);
-		else
-			redirect("cards/layout/".$gdata['size']);
+			if($this->session->userdata('img_id') && $this->session->userdata('img_id')!='')
+				redirect("cards/upload_pictures/".$gdata['size']);
+			elseif($this->session->userdata('pic_id') && $this->session->userdata('pic_id')!='')
+			{
+				redirect("cards/createPicture/");
+			}
+			else
+				redirect("cards/selectType"); //redirect("cards/layout/".$gdata['size']);		
 	    }
 	   
 	   if ($this->input->server('REQUEST_METHOD') === 'POST')
@@ -130,14 +144,19 @@ class Home extends CI_Controller
                         }
 			}
 			
+			
+			
 			if($this->session->userdata('packageback'))
 			{
+			
 			$url = html_entity_decode($this->session->userdata('packageback'));
 			$this->session->unset_userdata('packageback');
 			redirect($url);
 			}
 			else
-			redirect("home/signin/".$gdata['size']);
+			{
+				redirect("home/signin/".$gdata['size']);
+			}
 			
 		    }
 		    else
@@ -147,9 +166,6 @@ class Home extends CI_Controller
 		    }
 	    }
 	}
-	
-	
-	
 	
 	public function forgot_pass()
 	{

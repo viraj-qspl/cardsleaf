@@ -130,7 +130,7 @@
 <img src="<?php echo $this->config->item('theme_url')?>newimages/star_icon.png"> 
 <img src="<?php echo $this->config->item('theme_url')?>newimages/star_icon.png"> 
 <img src="<?php echo $this->config->item('theme_url')?>newimages/star_icon.png"> 
-<img src="<?php echo $this->config->item('theme_url')?>newimages/rate.png">
+<img src="<?php echo $this->config->item('theme_url')?>newimages/star_icon.png">
 </div><!--rate-->
 
 </div><!--message-->

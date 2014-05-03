@@ -19,6 +19,49 @@ public function __construct()
 		//$this->load->library('ckeditor_helper');
 	}
 	
+	
+	public function selectType()
+	{
+		
+		
+		
+		if(trim($this->uri->segment(4))!='')
+		{
+			if($this->uri->segment(4)=='CARD')
+				redirect($this->config->item('base_url').'cards/layout');
+			elseif($this->uri->segment(4)=='PICTURE')
+			{
+				$this->session->unset_userdata('pic_id');
+				$this->session->unset_userdata('pic_receiver');
+				$this->session->unset_userdata('rec_added');
+				$this->session->unset_userdata('pic_paid');
+				redirect($this->config->item('base_url').'cards/createPicture');
+			}	
+		}		
+		else		
+			$this->load->view('selectType');		
+				
+	
+	}
+	
+	
+	public function createPicture()
+	{
+		
+		if($this->session->userdata('pic_id') == '')
+			$this->session->set_userdata('pic_id',$this->musers->initPicture());
+		else
+			$data['picInfo'] = $this->musers->getPicInfo($this->session->userdata('pic_id'));
+		
+		$data['pic_id'] = $this->session->userdata('pic_id');
+		$this->load->view('createPicture',$data);
+	
+	}
+	
+	
+
+	
+	
 	public function layout()
 	{
 		/*if(!(isMemberLoggedIn()))
@@ -194,6 +237,68 @@ public function __construct()
 		$data["site_title"] = 'Cardsleaf :: Create card';
                 
 		$this->load->view('save_cards', $data);
+	}
+	
+	public function savePicture()
+	{
+			if($this->session->userdata('pic_paid')==1 && $this->session->userdata('rec_added')=='1')
+			{
+					redirect('/cards/finishedPicture');
+			}
+			elseif($this->session->userdata('pic_paid')=='' && $this->session->userdata('rec_added')=='1')
+			{
+				redirect('/subscribe/paypal_pro2');
+			}
+			elseif($this->session->userdata('pic_paid')=='' && $this->session->userdata('rec_added')=='')
+			{
+				
+				$data['countryList'] = $this->musers->AllCountry();		
+				$data['all_state_ind']=$this->mcountry->getStateInd(99);
+				$this->load->view('add_receiver',$data);
+			}
+	
+	
+	}
+	
+	public function saveReceiver()
+	{
+		$data = array();	
+		foreach($_POST as $key=>$value)
+		{
+			
+			if($key=='r_state' || $key=='or_state')
+				continue;			
+			
+			if($key=='r_country')
+			{
+				if($this->input->post('r_country')=='99')
+					$state = $this->input->post('r_state');
+				else
+					$state = $this->input->post('or_state');
+					
+				$data['state'] = $state;	
+			}
+			
+			$data[$key] = $this->input->post($key);	
+		}
+
+		$this->session->set_userdata('rec_added',1);
+		$this->session->set_userdata('pic_receiver',$data);
+		
+		redirect($this->config->item('base_url').'cards/savePicture');
+
+	}
+	
+	
+	public function finishedPicture()
+	{
+	
+		$data['picInfo'] = $this->musers->finishedPictureInfo($this->session->userdata('finpic_id'));
+			
+		$this->load->view('finalPicture',$data);
+	
+	
+	
 	}
 	
 	public function upload_pictures()

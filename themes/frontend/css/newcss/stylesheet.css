@@ -1,3 +1,4 @@
+/** NEW CSS **/	
 @charset "utf-8";
 /* CSS Document */
 *{ margin:0; padding:0;}
@@ -148,9 +149,9 @@ border-radius:6px; -webkit-border-radius:6px; -moz-border-radius:6px; -o-border-
 .sign_form p{ margin-top:10px;}
 .sign_input{ width:90%;border:solid 1px #c4c4c4;padding:10px 12px; border-radius:8px; -moz-border-radius:8px; -webkit-border-radius:8px; -o-border-radius:8px;box-shadow:0 3px 4px rgba(0, 0, 0, 0.1) inset;
 font-family: 'DroidSans'; color:#7B7B7B; font-size:16px;}
-.signup{ max-width:100px;margin-top:8px; text-align:center; float:left;}
+.signup{ /*max-width:100px*/;margin-top:8px; text-align:center; float:left;}
 .signup_btn{ background:#a0c200; font-size:20px; color:#fff; text-align:center;font-family: 'DroidSans'; 
-border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-radius:5px; padding:10px 20px;border:none;cursor:pointer;}
+border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-radius:5px; padding:10px 20px; border:none;}
 .signup_btn:hover{ background:#94b303;}
 .in{ max-width:335px;margin-top:10px;}
 .link{ float:left; padding:20px 0 0 12px;}
@@ -206,16 +207,13 @@ border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-
 .thumbnails ul{ list-style-type:none;}
 .thumbnails li{ float:left; margin:8px 12px;}
 .active{ margin-top:2px !important;}
-
 .card_view{ font-size:14px; color:#464646; line-height:22px; padding:10px 0;}
 .card_view h2{color: #464646;font-family: 'DroidSans-Bold';font-size: 18px; padding-bottom:8px;}
-
 .pic_select{ float:left;}
 .pic_select ul{ list-style-type:none;}
 .pic_select li{ float:left; font-size:13px; color:#8aa700;}
 .pic_select a{ color:#8aa700; padding:0px 5px;}
 .pic_select a:hover{ text-decoration:underline;}
-
 .seen{ width:230px;padding:18px 0;}
 .size{ clear:both; float:left;}
 .size label{ font-size:16px; color:#464646;}
@@ -235,11 +233,80 @@ border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-
 .mailing{ width:300px; float:left; margin-left:70px; margin-top:80px;}
 .mailing h1{ font-size:32px; color:#a0c200;}
 .in2{ max-width:100%;margin-top:10px;}
-
 .back_btn{ background:#bbbbbb; font-size:20px; color:#fff; text-align:center;font-family: 'DroidSans'; 
 border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-radius:5px; padding:10px 20px;}
 .back_btn:hover{ background:#adadad;}
 .shift{ margin-left:12px;}
+
+/*select package*/
+.package{ margin-top:25px;}
+.pack{width:250px; min-height:196px;padding:20px; background:#efefef; float:left; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; margin-right:20px;}
+.pack h2{ font-size:24px; color:#a0c200;font-family: 'DroidSans-Bold'; margin:0px;}
+.pack ul{ list-style-type:none;margin-top:8px;}
+.pack li{ font-size:14px; color:#464646;font-family: 'DroidSans'; line-height:21px; background:url(../../newimages/small_bullet.png) no-repeat 0px 15px; padding-top:8px; padding-left:14px;}
+.package_set{ margin-top:50px;}
+.acc{ width:215px; float:left;margin-right:16px;}
+.account{ width:214px; min-height:480px;float:left; border:solid 1px #a0c200; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; margin-right:16px;}
+.head_set{ background:#a0c200; color:#fff; text-align:center;font-family: 'DroidSans-Bold'; font-size:16px; padding:12px 0; text-transform:uppercase;}
+.dolar{ min-height:75px;background:#efefef; padding:22px 16px; color:#637706; font-size:16px; line-height:24px;}
+.para{ padding:10px;}
+.para ul{ list-style-type:none;}
+.para li{ font-size:14px; color:#464646;font-family: 'DroidSans'; line-height:22px; background:url(../../newimages/small_bullet.png) no-repeat 0px 17px; padding-top:8px; padding-left:14px;}
+.button{width:215px; margin-top:10px;}
+.now_btn{ background:#a0c200; color:#fff;font-family: 'DroidSans-Bold'; text-align:center; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; padding:13px 0;}
+.now_btn:hover{ background:#91b000;} 
+ 
+/*download*/
+.load_pic{ max-width:480px; float:left;}
+.download{ max-width:500px; margin-top:170px; float:right;}
+.download_btn{ background:#a2a2a2; color:#fff; text-align:center; font-size:30px; padding:18px 25px; border-radius:5px;  -webkit-border-radius:5px;  -moz-border-radius:5px;  -o-border-radius:5px;}
+.download_btn:hover{ background:#8b8b8b;}
+
+/*payment*/
+.payment{ max-width:800px; float:left; margin-top:25px;}
+.pay_form{ max-width:800px; }
+.red{ color:#ff0000; font-size:16px;padding-right:3px;}
+
+.pay{ max-width:800px; margin-top:12px;}
+.pay input { max-width:330px;float:left;}
+.lab{ width:165px; text-align:right;float:left; padding-right:16px; padding-top:12px; font-size:16px; color:#464646; }
+.set_input1{ width:275px;float:left;}
+.set_input2{ width:300px;float:left;}
+.set_input3{ width:95px;float:left;}
+.set_input4{ width:160px;float:left; margin-left:12px;}
+.set_input5{ width:70px;float:left;}
+
+.pay_input{ width:100%;border:solid 1px #c4c4c4;padding:10px 12px; border-radius:8px; -moz-border-radius:8px; -webkit-border-radius:8px; -o-border-radius:8px;box-shadow:0 3px 4px rgba(0, 0, 0, 0.1) inset;
+font-family: 'DroidSans'; color:#7B7B7B; font-size:16px;}
+
+.select_input{ width:100%;border:solid 1px #c4c4c4;padding:10px 12px; border-radius:8px; -moz-border-radius:8px; -webkit-border-radius:8px; -o-border-radius:8px;box-shadow:0 3px 4px rgba(0, 0, 0, 0.1) inset;
+font-family: 'DroidSans'; color:#7B7B7B; font-size:16px;}
+
+.card{ float:left;  margin-right:10px;}
+.price{ font-size:18px; color:#464646;font-family: 'DroidSans-Bold'; padding-top:10px;}
+.secure{ max-width:715px; clear:both;padding-top:45px;}
+.secure h2{ font-size:16px; color:#464646;font-family: 'DroidSans-Bold';}
+.secure p{ font-size:14px; color:#8e8e8e; line-height:21px; padding-top:5px;}
+
+/*changes 30/04/14*/
+.display2{ font-size:24px; color:#464646;font-family: 'DroidSans'; text-align:center; padding-top:20px;}
+.display2 a{color:#464646;}
+.top10{ padding:140px 30px; font-size:60px; color:#464646;}
+.round{ max-width:420px; float:left; text-align:center;}
+.picture{ max-width:960px;}
+.add_pic{ float:left; margin-right:16px; margin-top:14px;}
+.add_pic img{ border:solid 5px #fff;
+box-shadow:         0px 0px 4px 0px rgba(178, 178, 178, 1);
+-webkit-box-shadow: 0px 0px 4px 0px rgba(178, 178, 178, 1);
+-moz-box-shadow:    0px 0px 4px 0px rgba(178, 178, 178, 1);
+}
+.add_pic2{float:left; margin-right:16px; margin-top:14px;}
+
+.pic_area{ max-width:480px; margin-top:35px;}
+.txtarea{width:90%;border:solid 1px #c4c4c4;padding:10px 12px; border-radius:8px; -moz-border-radius:8px; -webkit-border-radius:8px; -o-border-radius:8px;box-shadow:0 3px 4px rgba(0, 0, 0, 0.1) inset;
+font-family: 'DroidSans'; color:#7B7B7B; font-size:16px; min-height:100px;}
+.top4{ padding-top:15px;}
+ 
 
 @media only screen and (min-width: 1200px) and (max-width: 1400px){
 	.tagline{max-width:460px;float:left; position:absolute; bottom:60px;}
@@ -269,6 +336,9 @@ border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-
 	.login_details{ float:none;}
 	.part2{ float:left;}
 	.create_right{ float:left; margin-top:30px;}
+	.pack{ margin-top:25px;} .acc{ margin-top:25px;}
+	.download{ float:left; margin-top:40px;}
+	.top10 {font-size: 50px;padding: 140px 15px;}
 	}
 
 @media only screen and (min-width: 480px) and (max-width: 767px){
@@ -299,6 +369,11 @@ border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-
 	.card_image img{ width:100%; height:auto;}
 	.create_right{ float:left; margin-top:30px;}
 	.mailing{ margin-left:0; margin-top:30px;}
+	.pack{ margin-top:25px;} .acc{ margin-top:25px;}
+	.download{ margin-top:40px; float:left;}
+	.pic{ min-height:inherit; padding-bottom:25px;}
+	.round{  float:none;}
+	.top10{ padding:50px 0;}
 	}
 @media only screen and (min-width: 320px) and (max-width: 479px){
 	.container{ width:95%;}
@@ -326,7 +401,33 @@ border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-
 	.create_right{ margin-top:30px;}
 	.card_image img{ width:100%; height:auto;}
 	.mailing{ margin-left:0; margin-top:30px;}
-	}
+	.pack{ margin:15px auto; float:none;} .acc{ margin-top:25px;}
+	.download{ margin:40px 0 0 0;}
+	.download_btn{ font-size:26px;}
+	.lab{ text-align:left; padding-bottom:10px;}
+	.pay{ margin-top:5px;}
+	.set_input3{ width:127px;}
+	.set_input5{ float:none;}
+	.top10{ padding:20px 0;}
+	.pic{ min-height:inherit; padding-bottom:20px;}
+	.top10 {padding: 50px 0;text-align: center;width: 100%;}
+	.add_pic{ width:100%; text-align:center;}
+	.add_pic2{ width:100%; text-align:center;}
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 /*** DEVELOPER CSS **/
 
@@ -356,7 +457,31 @@ label.error {
 margin-top:15px;
 }
 
+.add_pic {
+	position:relative;
+	cursor:pointer;
+}
 
+.add_pic .delete {
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-weight: bold;
+    height: 19px;
+    position: absolute;
+    right: 8px;
+    text-align: center;
+    top: 9px;
+    width: 17px;
+	display:none;
+	
+}
+
+.add_pic:hover .delete {
+display:block;
+}
+
+.add_pic {
+	position:relative;
+}
 
 
 	

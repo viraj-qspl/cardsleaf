@@ -77,16 +77,10 @@ class Subscribe extends CI_Controller {
         $data['all_state_us'] = $this->mcountry->getStateInd(223);
 
         $this->load->view('pay_credit', $data);
-		
-		
-		
-		
     }
 
     function payment_receipt() {  
 	
-
-			
 		$paypalSubmit = $_POST;
 		
 		$environment = 'sandbox'; // or 'beta-sandbox' or 'live'
@@ -171,6 +165,108 @@ class Subscribe extends CI_Controller {
             redirect("subscribe/paypal_pro");
         }
     }
+	
+   function paypal_pro2() {
+        if (!isMemberLoggedIn()) {
+            redirect("home/index");
+        }
+
+	$data['all_country'] = $this->mcountry->getCountry();
+	
+	$userid = $this->session->userdata('user_id');
+	$data['theUserDtls'] = $this->musers->getUserById($userid);
+	
+	
+	$data['pic_info'] = $this->musers->getPicInfo($this->session->userdata('pic_id'));
+	
+	$data['price'] = count($data['pic_info'])*.60;
+
+	$this->session->set_userdata('buyPrice',$data['price']); 	
+	
+    
+        $data["site_title"] = 'Pay';
+
+        $data['all_state_us'] = $this->mcountry->getStateInd(223);
+
+        $this->load->view('pay_credit2', $data);
+	
+    }
+	function payment_receipt2() {  
+
+	$paypalSubmit = $_POST;
+	
+	$environment = 'sandbox'; // or 'beta-sandbox' or 'live'
+
+	$firstName = urlencode($_POST['firstname']);
+	$lastName = urlencode($_POST['lastname']);
+	$creditCardType = urlencode($_POST['cardtype']);
+	$creditCardNumber = urlencode($_POST['cardnumber']);
+	$expDateMonth = urlencode($_POST['cardmonth']);
+
+	// Month must be padded with leading zero
+	$padDateMonth = str_pad($expDateMonth, 2, '0', STR_PAD_LEFT);
+	$expDateYear = urlencode($_POST['cardyear']);
+	$cvv2Number = urlencode($_POST['cardcvv']);
+	$address1 = urlencode($_POST['address1']);
+	$address2 = urlencode($_POST['address2']);
+	$city = urlencode($_POST['city']);
+
+	$zip = urlencode($_POST['zip']);
+	
+	//$amount = urlencode($_POST['amount']);
+	
+	$amount = $_POST['crimea']/(800*400); 
+	
+	$country = urlencode($_POST['select2']);
+	if ($country == 'US') {
+		$state = $this->input->post('r_state');
+	} else {
+		$state = $this->input->post('or_state');
+	}
+
+	$currencyCode = "USD";
+	$paymentType = 'Sale';
+
+	/* Construct the request string that will be sent to PayPal.
+	  The variable $nvpstr contains all the variables and is a
+	  name value pair string with & as a delimiter */
+	$nvpStr = "&PAYMENTACTION=$paymentType&AMT=$amount&CREDITCARDTYPE=$creditCardType&ACCT=$creditCardNumber" .
+			"&EXPDATE=$padDateMonth$expDateYear&CVV2=$cvv2Number&FIRSTNAME=$firstName&LASTNAME=$lastName" .
+			"&STREET=$address1&CITY=$city&STATE=$state&ZIP=$zip&COUNTRYCODE=$country&CURRENCYCODE=$currencyCode";
+	// Execute the API operation; see the PPHttpPost function above.
+	//echo $nvpStr;exit;
+	$httpParsedResponseAr = $this->PPHttpPost('DoDirectPayment', $nvpStr);
+
+	//echo "<pre>";print_r($httpParsedResponseAr); exit;
+
+	$ack = strtoupper($httpParsedResponseAr["ACK"]);
+	
+	
+	if ($ack == "SUCCESS") {
+
+		/** CODE TO UPDATE IMAGE TABLE WILL GO OVER HERE **/
+		
+		
+		$picInfo = $this->musers->getPicInfo($this->session->userdata('pic_id'));
+		
+		$finPicInfo = $this->musers->updateFinalPic($picInfo);
+		
+		$userid = $this->session->userdata('user_id');
+	
+		$this->session->set_userdata('pic_paid',1);
+		
+		redirect("cards/savePicture");
+	}
+	if ($ack != "SUCCESS") {
+	
+		$this->session->set_userdata('paypalSubmit',$paypalSubmit);
+		$this->session->set_userdata('error_msg1', $httpParsedResponseAr);
+		redirect("subscribe/paypal_pro2");
+	}
+}	
+	
+	
+
 
     function PPHttpPost($methodName_, $nvpStr_) {
         $environment = 'sandbox';

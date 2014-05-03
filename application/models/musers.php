@@ -773,22 +773,164 @@ class MUsers extends CI_Model
 	}	
 	
 	
+	function initPicture()
+	{
+		$this->db->insert('cards_temppic',array('text'=>''));
+		return $this->db->insert_id();
+
+	}
+	
+	function getPicInfo($id)
+	{
+		$this->db->select('*');
+		$this->db->from('temppic');
+		$this->db->join('tempimages','temppic.pic_id = tempimages.pic_id','left');
+		$this->db->where('temppic.pic_id',$id);
+		return $this->db->get()->result_array();
+	}
+	
+	function addPicture($pic_id,$image_name)
+	{
+		$this->db->insert('tempimages',array('pic_id'=>$pic_id,'pic_name'=>$image_name));	
+		return	$this->db->insert_id();
+	
+	}
+	
+	function deletePicture($img_id)
+	{
+		$this->db->where('img_id',$img_id);
+		$this->db->delete('tempimages');
+		
+		return $this->db->affected_rows();
+	
+	}
+	
+	function updateText($pic_id,$text)
+	{
+		$this->db->where('pic_id',$pic_id);
+		$this->db->update('temppic',array('text'=>nl2br($text)));
+	}
+	
+	function updateFinalPic($picInfo)
+	{
+
+		$path = 'media/temp/'.$this->session->userdata('pic_id');		
+		$scan_path = scandir($path);
+		
+		
+		foreach($scan_path as $key=>$value)
+		{
+			if($key==0 || $key==1 || $value=='thumb')
+				continue;
+						
+			copy($path.'/'.$value,'media/pics/'.$value);	
+		}
+		
+		
+		
+		$path = 'media/temp/'.$this->session->userdata('pic_id').'/thumb';
+		
+		$scan_path = scandir($path);
+		
+		foreach($scan_path as $key=>$value)
+		{
+			if($key==0 || $key==1)
+				continue;
+				
+			copy($path.'/'.$value,'media/pics/thumb/'.$value);
+		}
+
+		
+	
+		$this->deleteDir('media/temp/'.$this->session->userdata('pic_id').'/');
+	
+		$pic_receiver = $this->session->userdata('pic_receiver');
+	
+		$picText = $picInfo[0]['text'];
+		
+		$data = array(
+			'text'=>$picText,
+			'user_id'=>$this->session->userdata('user_id'),
+			'email'=>'',
+			'name'=>$pic_receiver['rname'],
+			'lname'=>$pic_receiver['lname'],
+			'country'=>$pic_receiver['r_country'],
+			'state'=>$pic_receiver['state'],
+			'city'=>$pic_receiver['r_city'],
+			'zipcode'=>$pic_receiver['r_zip'],
+			'reciver_add1'=>$pic_receiver['radd1'],
+			'delivery_dt'=>$pic_receiver['d_dt'],
+			'contactno'=>$pic_receiver['conno'],
+		);
+		
+		if(isset($pic_receiver['keepadd']))
+			$data['active_status'] = 1;
+		
+		$this->db->insert('pic',$data);
+		
+		$pic_id = $this->db->insert_id();
+		
+		foreach($picInfo as $key=>$value)
+		{
+			$data = array(
+				'pic_id'=>$pic_id,
+				'user_id'=>$this->session->userdata('pic_id'),
+				'image_name'=>$value['pic_name']	
+			);
+			
+			$this->db->insert('picimg',$data);
+		}
+		
+		$this->db->where('pic_id',$this->session->userdata('pic_id'));
+		$this->db->delete('temppic');
+		
+		$this->db->where('pic_id',$this->session->userdata('pic_id'));
+		$this->db->delete('tempimages');
+		
+		$this->session->set_userdata('finpic_id',$pic_id);
+		
+		return;
+	}
+	
+	
+	function finishedPictureInfo($finpicInfo)
+	{
+		$this->db->select();
+		$this->db->from('cards_pic');
+		$this->db->join('cards_picimg','cards_pic.pic_id = cards_picimg.pic_id');
+		$this->db->where('cards_pic.pic_id',$finpicInfo);
+		return $this->db->get()->result_array();
+		
+
+	
+	
+	}
+	
+	
+	function deleteDir($dirPath) {
+		if (! is_dir($dirPath)) {
+			throw new InvalidArgumentException("$dirPath must be a directory");
+		}
+		if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
+			$dirPath .= '/';
+		}
+		$files = glob($dirPath . '*', GLOB_MARK);
+		foreach ($files as $file) {
+			if (is_dir($file)) {
+				self::deleteDir($file);
+			} else {
+				unlink($file);
+			}
+		}
+		rmdir($dirPath);
+	}	
 	
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
 
 ?>
