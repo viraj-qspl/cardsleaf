@@ -12,18 +12,41 @@ class Membermodel extends CI_Model
 	
 	function allmemberinfo_count()
 	{
-		$this->db->select('u.*, c.country_name, s.name as state_name, i.img_id, i.image0, i.delivery_dt, i.post_date as order_dt');
+		//$searchfield = $this->input->post('searchfield');
+		
+		$this->db->select('u.*, c.country_name, s.name as state_name, i.img_id, i.dispatch_to, i.image0, i.delivery_dt, i.post_date as order_dt, 1 as pic_type');
 		$this->db->from('img as i');
 		$this->db->join('user as u','i.user_id = u.user_id','left');
 		$this->db->join('country as c','c.country_id = u.country_id', 'left');
 		$this->db->join('state as s','s.state_id = u.state_id AND s.country_id = u.country_id', 'left');
 		$this->db->where('i.active_status', 1);
 		$this->db->where('i.dispatch', 0);
-		$this->db->order_by("i.delivery_dt,i.img_id");
+		//$this->db->order_by("i.delivery_dt,i.img_id");
+		$query1 = $this->db->_compile_select();
+		$this->db->_reset_select();
+
 		
-		$query = $this->db->get();
-		//echo $this->db->last_query();
+		$this->db->select('u.*,c.country_name, s.name as state_name, pic.pic_id as img_ig, pic.dispatch_to, pic.dispatch_to as image0, pic.delivery_dt, pic.post_date as order_dt, 0 as pic_type');
+		$this->db->from('pic');
+		$this->db->join('picimg','pic.pic_id = picimg.pic_id');	
+		$this->db->join('user as u','pic.user_id = u.user_id','left');
+		$this->db->join('country as c','c.country_id = u.country_id', 'left');
+		$this->db->join('state as s','s.state_id = u.state_id AND s.country_id = u.country_id', 'left');
+		$this->db->where('pic.active_status', 1);		
+		$this->db->where('pic.dispatch',0);			
+		$this->db->order_by("delivery_dt");
+		$query2 = $this->db->_compile_select();	
+		$this->db->_reset_select();
+		
+		
+		
+		$query1 = str_replace(array(1=>'(',2=>')',3=>'`1`'),array(1=>'',2=>'',3=>'1'),$query1);
+		$query2 = str_replace(array(1=>'(',2=>')',3=>'`0`'),array(1=>'',2=>'',3=>'0'),$query2);
+			
+		$query = $this->db->query("$query1 UNION $query2 ");
+
 		$data = $query->result_array();
+
 		$count = $query->num_rows();
 		
 		return ($count>0) ? $count : 0;
@@ -34,25 +57,51 @@ class Membermodel extends CI_Model
 	{
 		//$searchfield = $this->input->post('searchfield');
 		
-		$this->db->select('u.*, c.country_name, s.name as state_name, i.img_id, i.dispatch_to, i.image0, i.delivery_dt, i.post_date as order_dt');
+		$this->db->select('u.*, c.country_name, s.name as state_name, i.img_id, i.dispatch_to, i.image0, i.delivery_dt, i.post_date as order_dt, 1 as pic_type');
 		$this->db->from('img as i');
 		$this->db->join('user as u','i.user_id = u.user_id','left');
 		$this->db->join('country as c','c.country_id = u.country_id', 'left');
 		$this->db->join('state as s','s.state_id = u.state_id AND s.country_id = u.country_id', 'left');
-		
 		$this->db->where('i.active_status', 1);
 		$this->db->where('i.dispatch', 0);
-		$this->db->order_by("i.delivery_dt,i.img_id");
+		//$this->db->order_by("i.delivery_dt,i.img_id");
+		$query1 = $this->db->_compile_select();
+		$this->db->_reset_select();
+
 		
-		if($limit != '')
-		$this->db->limit($limit, $start);
 		
-		$query = $this->db->get();
 		
+		$this->db->select('u.*,c.country_name, s.name as state_name, pic.pic_id as img_ig, pic.dispatch_to, pic.dispatch_to as image0, pic.delivery_dt, pic.post_date as order_dt, 0 as pic_type');
+		$this->db->from('pic');
+		$this->db->join('picimg','pic.pic_id = picimg.pic_id');	
+		$this->db->join('user as u','pic.user_id = u.user_id','left');
+		$this->db->join('country as c','c.country_id = u.country_id', 'left');
+		$this->db->join('state as s','s.state_id = u.state_id AND s.country_id = u.country_id', 'left');
+		$this->db->where('pic.active_status', 1);		
+		$this->db->where('pic.dispatch',0);			
+		$this->db->order_by("delivery_dt");
+		$query2 = $this->db->_compile_select();	
+		$this->db->_reset_select();
+			
+		
+		//if($limit != '')
+		//$this->db->limit($limit, $start);		
+		//$query = $this->db->get();	
 		//echo $this->db->last_query();
 		
+		$query1 = str_replace(array(1=>'(',2=>')',3=>'`1`'),array(1=>'',2=>'',3=>'1'),$query1);
+		$query2 = str_replace(array(1=>'(',2=>')',3=>'`0`'),array(1=>'',2=>'',3=>'0'),$query2);
+		
+		if($limit != '')
+		$limit = " LIMIT $start,$limit ";	
+		
+		
+		$query = $this->db->query("$query1 UNION $query2 $limit");
+
 		$data = $query->result_array();
+
 		$count = $query->num_rows();
+
 		
 		return ($count>0) ? $data : 0;
 	}

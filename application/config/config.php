@@ -14,7 +14,7 @@ session_start();
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://192.168.1.3/cardsleaf/'; //http://www.phppowerhousedemo.com/webroot/team5/cardsleaf/
+$config['base_url']	= 'http://192.168.1.3/cardsleaf'; //http://www.phppowerhousedemo.com/webroot/team5/cardsleaf/
 /*
 |--------------------------------------------------------------------------
 | Index File

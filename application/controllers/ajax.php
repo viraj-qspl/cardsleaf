@@ -671,7 +671,7 @@ class Ajax extends CI_Controller
 				echo json_encode($error, true);
 			}
 			else
-				echo json_encode(array('path'=>$this->config->item('base_url').'media/temp/'.$pic_id.'/'.$actual_image_name,'img_id'=>$db_pic_id), true);
+				echo json_encode(array('path'=>$this->config->item('base_url').'/media/temp/'.$pic_id.'/'.$actual_image_name,'img_id'=>$db_pic_id), true);
 	
 				exit;
 		}		

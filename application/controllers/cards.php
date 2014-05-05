@@ -28,14 +28,14 @@ public function __construct()
 		if(trim($this->uri->segment(4))!='')
 		{
 			if($this->uri->segment(4)=='CARD')
-				redirect($this->config->item('base_url').'cards/layout');
+				redirect($this->config->item('base_url').'/cards/layout');
 			elseif($this->uri->segment(4)=='PICTURE')
 			{
 				$this->session->unset_userdata('pic_id');
 				$this->session->unset_userdata('pic_receiver');
 				$this->session->unset_userdata('rec_added');
 				$this->session->unset_userdata('pic_paid');
-				redirect($this->config->item('base_url').'cards/createPicture');
+				redirect($this->config->item('base_url').'/cards/createPicture');
 			}	
 		}		
 		else		
@@ -244,6 +244,7 @@ public function __construct()
 			if($this->session->userdata('pic_paid')==1 && $this->session->userdata('rec_added')=='1')
 			{
 					redirect('/cards/finishedPicture');
+					
 			}
 			elseif($this->session->userdata('pic_paid')=='' && $this->session->userdata('rec_added')=='1')
 			{
@@ -285,21 +286,51 @@ public function __construct()
 		$this->session->set_userdata('rec_added',1);
 		$this->session->set_userdata('pic_receiver',$data);
 		
-		redirect($this->config->item('base_url').'cards/savePicture');
+		redirect($this->config->item('base_url').'/cards/savePicture');
 
 	}
 	
 	
 	public function finishedPicture()
-	{
-	
-		$data['picInfo'] = $this->musers->finishedPictureInfo($this->session->userdata('finpic_id'));
-			
-		$this->load->view('finalPicture',$data);
-	
-	
-	
+	{		
+			$data['picInfo'] = $this->musers->finishedPictureInfo($this->session->userdata('finpic_id'));			
+			$this->load->view('finalPicture',$data);
+					
+			$zippath = "media/pics/zip/";
+			$path = "media/pics/pdf/";
+
+			 $file_names = array();
+			 
+			 $count = 0;
+
+			 $file_names[$count] = ''.$this->session->userdata('finpic_id').'.pdf';
+		 
+			 $archive_file_name = $zippath.$this->session->userdata('finpic_id').".zip";
+					
+			$zip = new ZipArchive();
+			//create the file and throw the error if unsuccessful
+			if ($zip->open($archive_file_name, ZIPARCHIVE::CREATE )!==TRUE) {
+			exit("cannot open <$archive_file_name>\n");
+			}
+			//add each files of $file_name array to archive
+			foreach($file_names as $files)
+			{
+			  $zip->addFile($path.$files,$files);
+			//echo $file_path.$files,$files."<br>";
+			}
+			$zip->close();			
+
 	}
+	
+	
+	
+	
+
+	
+	
+	
+
+	
 	
 	public function upload_pictures()
 	{
@@ -358,6 +389,97 @@ public function __construct()
 	}
 	
 	
+	function zipFilesAndDownload($file_names,$archive_file_name,$file_path)
+	{
+	    $zip = new ZipArchive();
+	    //create the file and throw the error if unsuccessful
+	    if ($zip->open($archive_file_name, ZIPARCHIVE::CREATE )!==TRUE) {
+		exit("cannot open <$archive_file_name>\n");
+	    }
+	    //add each files of $file_name array to archive
+	    foreach($file_names as $files)
+	    {
+		  $zip->addFile($file_path.$files,$files);
+		//echo $file_path.$files,$files."<br>";
+	    }
+	    $zip->close();
+	    
+		$file_name = $archive_file_name;
+		$file_path = "".$file_name;
+
+		header("Pragma: public");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+		header("Cache-Control: public");
+		header("Content-Description: File Transfer");
+		header("Content-Type: application/zip");
+		$content_disposition = "Content-disposition: attachement; filename=\"".$file_name."\"";
+		header($content_disposition);
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: ".filesize($file_path));
+		$f = @fopen($file_path,"rb");
+		while(!feof($f)){
+		    print(fread($f, 1024*8));
+		    flush();
+		}
+		@fclose($f);	
+	    
+		return;
+	    //exit;
+	}
 	
+	public function testpdf() {
+	
+		 require_once(realpath(APPPATH."helpers/dompdf")."/dompdf_config.inc.php");
+		 $this->load->helper(array('dompdf', 'file'));
+		 
+		 
+		$pictureInfo =  $this->musers->finishedPictureInfo($this->session->userdata('finpic_id'));
+		
+		 $pdf_content = '<div id="privacy" style="  color: #464646;font-size: 14px;line-height: 22px;padding: 10px 0;"><div id="new_pictures" class="picture clearfix" style="display: table;line-height:0;clear:both;">';
+		 
+			$count = 0;
+			
+			$counter = count($pictureInfo)-1;
+			$value = $pictureInfo;
+			$j=0;
+		 
+		 for($i=$counter;$i>0;$i--)
+		 {
+			
+			if($count==0)
+			{
+				$pdf_content = $pdf_content.'<div style="width:100%;margin:auto;">';
+				$j++;
+			}	
+			
+			$pdf_content .= '<div class="add_pic" style="position: relative;float:left;margin-right: 16px;margin-top: 14px;"><img style="float:left;border: 5px solid #FFFFFF;box-shadow: 0 0 4px 0 #B2B2B2;height:141px"  src="'.base_url().'/media/pics/'.$value[$i]['image_name'].'"/></div>';
+			
+			$count++;
+			if($count==4)
+			{
+				$count=0;$pdf_content = $pdf_content."</div><div style=\"clear:both\"></div>";
+				
+			}
+		}	
+		 
+		 if($count!=4)
+			$pdf_content = $pdf_content."</div><div style=\"clear:both\"></div>";
+		 
+		 $pdf_content .= '</div></div>'; 
+		 
+		 $pdf_content .= '<div style="clear:both;" ></div><div class="picrea" style="color: #464646;font-size: 14px;line-height: 22px;position:relative;top:'. 175*$j. 'px"><div id="addText" class="txtarea" style=" border: 1px solid #C4C4C4;border-radius: 8px;box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1) inset;color: #7B7B7B;font-family: \'DroidSans\';font-size: 16px;min-height: 100px;padding: 10px 12px;width: 90%;" >'.$value[0]['text'].'</div><br/><br/>
+		 <div style="margin:auto;text-align:center;" id="marker"><div style="margin:auto;" id="logo"><a><img border="0" alt="" src="'.$this->config->item('base_url').'/themes/frontend/images/logo.png"></a></div><div style="margin:auto;" id="link"><a>www.cardsleaf.com</a></div></div>
+		 </div>';
+		 
+		 $pdf_content .= '';
+		
+		
+		//echo $pdf_content;exit;
+		  
+		$data_allpage = pdf_create($pdf_content, '', false);
+	    write_file('./media/pics/pdf/'.$this->session->userdata('finpic_id').'.pdf', $data_allpage);
+
+		}
 	
 }

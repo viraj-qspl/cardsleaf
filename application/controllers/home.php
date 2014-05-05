@@ -538,7 +538,8 @@ class Home extends CI_Controller
 					
 					$pdf_html2 = str_replace('<div id="marker" style="background: none repeat scroll 0 0 #FFFFFF; display: block; height: auto; margin: 270px auto 0; text-align: center; width: 135px;">','<div id="marker" style="margin:auto;text-align:center;position:relative;top:28%;">',$pdf_html2);
 
-
+				
+					
 			
 			}
 			

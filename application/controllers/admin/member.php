@@ -27,7 +27,7 @@ class member extends CI_Controller
                 $config["base_url"] = base_url()."admin/member/index";
                 $config["per_page"] = 20;
                 $config["uri_segment"] = 4;
-		$config['num_links'] = 10;
+				$config['num_links'] = 10;
 		
                 $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
                 $config["total_rows"] = $this->membermodel->allmemberinfo_count();

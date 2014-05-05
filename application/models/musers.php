@@ -537,7 +537,7 @@ class MUsers extends CI_Model
 	function dispatch($vendorId,$imageId)
 	{
 		$this->db->where('img_id',$imageId);
-		$this->db->update('cards_img',array('dispatch_to'=>$vendorId));
+		$this->db->update('cards_img',array('dispatch_to'=>$vendorId,'dispatch'=>1));
 		return $this->db->affected_rows();
 	}
 	
@@ -859,16 +859,19 @@ class MUsers extends CI_Model
 			'city'=>$pic_receiver['r_city'],
 			'zipcode'=>$pic_receiver['r_zip'],
 			'reciver_add1'=>$pic_receiver['radd1'],
-			'delivery_dt'=>$pic_receiver['d_dt'],
+			'delivery_dt'=>date('Y-m-d',strtotime($pic_receiver['d_dt'])),
+			'post_date'=>date('Y-m-d'),
 			'contactno'=>$pic_receiver['conno'],
 		);
 		
-		if(isset($pic_receiver['keepadd']))
-			$data['active_status'] = 1;
+	//	if(isset($pic_receiver['keepadd']))
+	//		$data['active_status'] = 1;
 		
 		$this->db->insert('pic',$data);
-		
+
 		$pic_id = $this->db->insert_id();
+		
+		$this->session->set_userdata('finpic_id',$pic_id);	
 		
 		foreach($picInfo as $key=>$value)
 		{
@@ -887,8 +890,58 @@ class MUsers extends CI_Model
 		$this->db->where('pic_id',$this->session->userdata('pic_id'));
 		$this->db->delete('tempimages');
 		
-		$this->session->set_userdata('finpic_id',$pic_id);
 		
+		 require_once(realpath(APPPATH."helpers/dompdf")."/dompdf_config.inc.php");
+		 $this->load->helper(array('dompdf', 'file'));
+		 
+		 
+		$pictureInfo =  $this->finishedPictureInfo($this->session->userdata('finpic_id'));
+		
+		 $pdf_content = '<div id="privacy" style="  color: #464646;font-size: 14px;line-height: 22px;padding: 10px 0;"><div id="new_pictures" class="picture clearfix" style="display: table;line-height:0;clear:both;">';
+		 
+			$count = 0;
+			
+			$counter = count($pictureInfo)-1;
+			$value = $pictureInfo;
+			$j=0;
+		 
+		 for($i=$counter;$i>0;$i--)
+		 {
+			
+			if($count==0)
+			{
+				$pdf_content = $pdf_content.'<div style="width:100%;margin:auto;">';
+				$j++;
+			}	
+			
+			$pdf_content .= '<div class="add_pic" style="position: relative;float:left;margin-right: 16px;margin-top: 14px;"><img style="float:left;border: 5px solid #FFFFFF;box-shadow: 0 0 4px 0 #B2B2B2;height:141px"  src="'.base_url().'/media/pics/'.$value[$i]['image_name'].'"/></div>';
+			
+			$count++;
+			if($count==4)
+			{
+				$count=0;$pdf_content = $pdf_content."</div><div style=\"clear:both\"></div>";
+				
+			}
+		}	
+		 
+		 if($count!=4)
+			$pdf_content = $pdf_content."</div><div style=\"clear:both\"></div>";
+		 
+		 $pdf_content .= '</div></div>'; 
+		 
+		 $pdf_content .= '<div style="clear:both;" ></div><div class="picrea" style="color: #464646;font-size: 14px;line-height: 22px;position:relative;top:'. 175*$j. 'px"><div id="addText" class="txtarea" style=" border: 1px solid #C4C4C4;border-radius: 8px;box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1) inset;color: #7B7B7B;font-family: \'DroidSans\';font-size: 16px;min-height: 100px;padding: 10px 12px;width: 90%;" >'.$value[0]['text'].'</div><br/><br/>
+		 <div style="margin:auto;text-align:center;" id="marker"><div style="margin:auto;" id="logo"><a><img border="0" alt="" src="'.$this->config->item('base_url').'/themes/frontend/images/logo.png"></a></div><div style="margin:auto;" id="link"><a>www.cardsleaf.com</a></div></div>
+		 </div>';
+		 
+		 $pdf_content .= '';
+		
+		 
+		 
+
+		  
+		$data_allpage = pdf_create($pdf_content, '', false);
+	    write_file('./media/pics/pdf/'.$this->session->userdata('finpic_id').'.pdf', $data_allpage);
+
 		return;
 	}
 	
