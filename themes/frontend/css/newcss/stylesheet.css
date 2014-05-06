@@ -1,4 +1,3 @@
-/** NEW CSS **/	
 @charset "utf-8";
 /* CSS Document */
 *{ margin:0; padding:0;}
@@ -86,12 +85,12 @@ border-radius:6px; -webkit-border-radius:6px; -moz-border-radius:6px; -o-border-
 .banner{ position:relative;}
 
 /*slider*/
-.gray_slide{ width:100%; background:url(../images/slider_bg.jpg) repeat; padding:20px 0 10px 0;}
+.gray_slide{ width:100%; background:url(../../images/slider_bg.jpg) repeat; padding:20px 0 10px 0;}
 .slider_left{ max-width:460px; float:left; margin-top:15px;}
 .slider_left h3{ font-size:30px; color:#a0c200;font-family: 'DroidSans-Bold'; line-height:36px;}
 .slider_left p{ font-size:14px; color:#7a7a7a; line-height:24px; margin-top:12px;}
 .slider_left ul{  margin-top:10px;}
-.slider_left li{font-size:18px; color:#7a7a7a; line-height:30px; background:url(../images/bullets.png) no-repeat 0 12px; padding-left:17px;}
+.slider_left li{font-size:18px; color:#7a7a7a; line-height:30px; background:url(../../images/bullets.png) no-repeat 0 12px; padding-left:17px;}
 .slider_right{ max-width:310px; float:right;}
 .set{ max-width:740px; margin:0px auto;}
 
@@ -243,7 +242,7 @@ border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-
 .pack{width:250px; min-height:196px;padding:20px; background:#efefef; float:left; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; margin-right:20px;}
 .pack h2{ font-size:24px; color:#a0c200;font-family: 'DroidSans-Bold'; margin:0px;}
 .pack ul{ list-style-type:none;margin-top:8px;}
-.pack li{ font-size:14px; color:#464646;font-family: 'DroidSans'; line-height:21px; background:url(../../newimages/small_bullet.png) no-repeat 0px 15px; padding-top:8px; padding-left:14px;}
+.pack li{ font-size:14px; color:#464646;font-family: 'DroidSans'; line-height:21px; background:url(../../images/small_bullet.png) no-repeat 0px 15px; padding-top:8px; padding-left:14px;}
 .package_set{ margin-top:50px;}
 .acc{ width:215px; float:left;margin-right:16px;}
 .account{ width:214px; min-height:480px;float:left; border:solid 1px #a0c200; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; margin-right:16px;}
@@ -251,7 +250,7 @@ border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:4px; -o-border-
 .dolar{ min-height:75px;background:#efefef; padding:22px 16px; color:#637706; font-size:16px; line-height:24px;}
 .para{ padding:10px;}
 .para ul{ list-style-type:none;}
-.para li{ font-size:14px; color:#464646;font-family: 'DroidSans'; line-height:22px; background:url(../../newimages/small_bullet.png) no-repeat 0px 17px; padding-top:8px; padding-left:14px;}
+.para li{ font-size:14px; color:#464646;font-family: 'DroidSans'; line-height:22px; background:url(../../images/small_bullet.png) no-repeat 0px 17px; padding-top:8px; padding-left:14px;}
 .button{width:215px; margin-top:10px;}
 .now_btn{ background:#a0c200; color:#fff;font-family: 'DroidSans-Bold'; text-align:center; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; -o-border-radius:5px; padding:13px 0;}
 .now_btn:hover{ background:#91b000;} 
@@ -413,7 +412,7 @@ font-family: 'DroidSans'; color:#7B7B7B; font-size:16px; min-height:100px;}
 	.top10 {padding: 50px 0;text-align: center;width: 100%;}
 	.add_pic{ width:100%; text-align:center;}
 	.add_pic2{ width:100%; text-align:center;}
-	}	
+	}
 	
 	
 	

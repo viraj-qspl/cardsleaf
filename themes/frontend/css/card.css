@@ -839,3 +839,11 @@ min-width:300px;
 .uploadcon {
 border: 6px solid #A0C200;
 }
+
+.preview_card ul li.active span,.preview_card ul li:hover span {
+background:none !important;
+
+}
+
+
+

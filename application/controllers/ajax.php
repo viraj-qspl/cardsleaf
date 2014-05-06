@@ -355,6 +355,28 @@ class Ajax extends CI_Controller
 	}
 	
 	
+	public function getreceiverdetails2($cardid=false,$echo=true)
+	{
+		
+		if($cardid == false)
+			$cardid = $this->input->post('img');
+		
+		$data['thecardDtls']=$this->musers->finishedPictureInfo($cardid);
+	
+		if($echo)	
+			echo json_encode($data['thecardDtls'][0]);
+		else
+			return $data['thecardDtls'];
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public function getVendorbyZone()
 	{
 		$zone = $this->input->post('zone');
@@ -459,6 +481,129 @@ class Ajax extends CI_Controller
 	
 	
 	}
+	
+	
+	
+	
+	public function dispatchtoVendor2()
+	{
+		$vendorId = $this->input->post('vendorId'); 
+		$imageId = $this->input->post('imageId');
+
+		$success = ($this->musers->dispatch2($vendorId,$imageId)==0)?false:true;
+		
+		$vendorInfo = $this->adminmodel->getVendorsByid($vendorId);
+		
+		$receiverDetails = $this->musers->finishedPictureInfo($imageId,false); 
+		
+		$imageDetails =  $receiverDetails;
+		
+		$receiverDetails = $receiverDetails[0];
+
+
+		
+		if($success) 
+		{		
+			$message = "<html><head><title></title></head><body>Hello, ".$vendorInfo['fname']."<br\>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please find the attached document to be printed and mailed. The recipient details are as follows:<br\><br\><br\>"	
+			
+			."<b style='font-size:13px'>First Name</b>: ".$receiverDetails['name']."<br\>" 
+			."<b style='font-size:13px'>Last Name</b>: ".$receiverDetails['lname']."<br\>"
+			."<b style='font-size:13px'>Delivery Date</b>: ".$receiverDetails['delivery_dt']."<br\>"
+			."<b style='font-size:13px'>Country</b>: ".$receiverDetails['cname']."<br\>"
+			."<b style='font-size:13px'>Address</b>: ".$receiverDetails['reciver_add1']."<br\>"
+			."<b style='font-size:13px'>State</b>: ".$receiverDetails['sname']."<br\>"
+			."<b style='font-size:13px'>City</b>: ".$receiverDetails['city']."<br\>"
+			."<b style='font-size:13px'>Zip</b>: ".$receiverDetails['zipcode']."<br\>"
+			."<b style='font-size:13px'>Contact Number</b>: ".$receiverDetails['contactno']."<br\><br/>Regards<br/>CardsLeaf.com</body></html>";
+
+			if(trim($vendorInfo['email'])=='')
+				$email = $vendorInfo['username'];
+			else
+				$email = $vendorInfo['email'];
+			
+			$this->email->initialize(array('mailtype'=>'html'));
+			$this->email->from($this->config->item('admin_email'), 'Cards Leaf Administrator');
+			$this->email->to($email); 
+			$this->email->subject('Print Order for Picture Number:'.$imageId);
+			$this->email->message($message);			
+			//$this->email->attach($this->config->item('base_path').'media/cards_image/zip/'.$imageId.'.zip');
+			
+			
+		
+		$zip = new ZipArchive();
+		
+		$time = time();
+
+		$fileName = $this->config->item('base_path').'media/temp/temp'.$time.'.zip';
+
+		
+		if ($zip->open($fileName, ZipArchive::CREATE)!==TRUE) {
+				exit("cannot open <$filename>\n");
+		}	
+		
+	
+		$receiverDetails = $imageDetails;
+		
+		$details = 'Name:'.$receiverDetails[0]['name'].' '.$receiverDetails[0]['lname'].PHP_EOL
+						   .'Delivery Date:'.$receiverDetails[0]['delivery_dt'].PHP_EOL
+						   .'Country:'.$receiverDetails[0]['cname'].PHP_EOL
+						   .'Address:'.$receiverDetails[0]['reciver_add1'].' '.$receiverDetails[0]['reciver_add2'].PHP_EOL
+						   .'State:'.$receiverDetails[0]['sname'].PHP_EOL
+						   .'City:'.$receiverDetails[0]['city'].PHP_EOL
+						   .'Zip:'.$receiverDetails[0]['zipcode'].PHP_EOL
+						   .'Contact Number:'.$receiverDetails[0]['contactno'].PHP_EOL;
+						
+						
+				$zip->addFromString("ReceiverDetails.txt",$details);
+				
+				foreach($receiverDetails as $key=>$value)
+				{
+					$imageName = explode('.',$value['image_name']);
+					$zip->addFile($this->config->item('base_path').'media/pics/'.$value['image_name'],"image".$key.".".end($imageName));
+				}
+				
+				$zip->addFile($this->config->item('base_path').'media/pics/pdf/'.$imageId.'.pdf',"layout.pdf");
+				
+				$zip->close();
+		
+			
+				
+				$this->email->attach($fileName);	
+
+			
+			
+			$mailSent = $this->email->send();
+			
+			if($mailSent)
+				unlink($fileName);
+			
+			
+
+		}
+		
+		
+		
+		echo json_encode(array('success'=>$success));
+		
+	
+		
+	
+	
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public function print_d()

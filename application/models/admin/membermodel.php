@@ -97,6 +97,7 @@ class Membermodel extends CI_Model
 		
 		
 		$query = $this->db->query("$query1 UNION $query2 $limit");
+		
 
 		$data = $query->result_array();
 

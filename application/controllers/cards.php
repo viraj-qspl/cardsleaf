@@ -28,14 +28,14 @@ public function __construct()
 		if(trim($this->uri->segment(4))!='')
 		{
 			if($this->uri->segment(4)=='CARD')
-				redirect($this->config->item('base_url').'/cards/layout');
+				redirect($this->config->item('base_url').'cards/layout');
 			elseif($this->uri->segment(4)=='PICTURE')
 			{
 				$this->session->unset_userdata('pic_id');
 				$this->session->unset_userdata('pic_receiver');
 				$this->session->unset_userdata('rec_added');
 				$this->session->unset_userdata('pic_paid');
-				redirect($this->config->item('base_url').'/cards/createPicture');
+				redirect($this->config->item('base_url').'cards/createPicture');
 			}	
 		}		
 		else		
@@ -243,12 +243,13 @@ public function __construct()
 	{
 			if($this->session->userdata('pic_paid')==1 && $this->session->userdata('rec_added')=='1')
 			{
-					redirect('/cards/finishedPicture');
 					
+					$this->load->view('thankyou',array('downpict'=>1));
+					//redirect('cards/finishedPicture');				
 			}
 			elseif($this->session->userdata('pic_paid')=='' && $this->session->userdata('rec_added')=='1')
 			{
-				redirect('/subscribe/paypal_pro2');
+				redirect('subscribe/paypal_pro2');
 			}
 			elseif($this->session->userdata('pic_paid')=='' && $this->session->userdata('rec_added')=='')
 			{
@@ -286,7 +287,7 @@ public function __construct()
 		$this->session->set_userdata('rec_added',1);
 		$this->session->set_userdata('pic_receiver',$data);
 		
-		redirect($this->config->item('base_url').'/cards/savePicture');
+		redirect($this->config->item('base_url').'cards/savePicture');
 
 	}
 	

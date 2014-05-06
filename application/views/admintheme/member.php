@@ -28,6 +28,35 @@ function download_zip(pic)
 	window.location = "<?php echo base_url()?>admin/member/dnzip/"+pic;
 }
 
+
+
+function download_img1(pic)
+{
+	window.location = "<?php echo base_url()?>admin/member/dnimg1/"+pic;
+}
+function download_pdf1(pic)
+{
+	window.location = "<?php echo base_url()?>admin/member/dnpdf1/"+pic;
+}
+function download_zip1(pic)
+{
+	window.location = "<?php echo base_url()?>admin/member/dnzip1/"+pic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).ready(function() {
 	
 	$("a.receiver").click(function() {
@@ -35,8 +64,17 @@ $(document).ready(function() {
 		$("#receiver").css('display','block');
 		$("#vendor").css('display','none');
 		sendData = {"img":$(this).attr('pic')}
+		
+		if( $(this).attr('type')==1 )
+			url = '<?php echo base_url();?>ajax/getreceiverdetails2';
+		else
+			url = '<?php echo base_url();?>ajax/getreceiverdetails';
+		
 		$.ajax({
-		url: '<?php echo base_url();?>ajax/getreceiverdetails',
+		
+
+			
+		url: url,
 		data: sendData,
 		type: 'POST',
 		cache: false,
@@ -61,7 +99,12 @@ $(document).ready(function() {
 		
 		});
 		
+	var pic_type;
+	
 	$("a.dispatch").click(function() {
+	
+	window.type = $(this).attr('type');
+			
 		$("#receiver").css('display','none');
 		$("#vendor").css('display','block');
 		
@@ -181,11 +224,20 @@ $(document).ready(function() {
 	});
 	
 $("input#dispatch").click(function(){
+
+	
+
 	$("#modal2").html('Please Wait...');
 	$("#modal").css('display','block');$("#modal2").css('display','block');
 	$("#fancybox-close").css('display','none');
+	
+	if(window.type==1)
+		url = "<?php echo base_url();?>ajax/dispatchToVendor2";
+	else
+		url = "<?php echo base_url();?>ajax/dispatchToVendor";
+	
 	$.ajax({
-		url:"<?php echo base_url();?>ajax/dispatchToVendor",
+		url:url,
 		type:"POST",
 		data:{"imageId":$("#imageId").val(),"vendorId":$("#vendorName").children(":selected").val()},
 		cache:false,
@@ -271,11 +323,25 @@ $this->session->unset_userdata('success_msg');
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="list_box">-->
 <?php
 //echo "<pre>";print_r($allmemberinfo);echo "</pre>";
+
+
+
+
+
+
+
 if(!empty($allmemberinfo))
 {
 $i=1;
 foreach($allmemberinfo as $eachallmemberinfo)
 { 
+
+	if($eachallmemberinfo['pic_type']==1)
+		$dntype = '';
+	else
+		$dntype = '1';
+
+
 	$i++;
 	if($i%2==0) $class='color_01'; else $class="";
 ?>
@@ -289,16 +355,26 @@ foreach($allmemberinfo as $eachallmemberinfo)
     <td><?php echo $allmemberinfo['city']; ?></td>
     <td><?php echo $allmemberinfo['zip']; ?></td><?php */?>
     
-    <td><a href='javascript:void(0);' onclick='download_img("<?php echo $eachallmemberinfo['image0']; ?>")'>
-    <img alt='img_alt_text' height=75 width=75 src="<?php echo base_url()?>media/cards_image/large/<?php echo $eachallmemberinfo['image0']; ?>" ></a></td>
-    <td><a href='javascript:void(0);' onclick='download_pdf("<?php echo $eachallmemberinfo['img_id'].'_card.pdf'; ?>")'>
+    <td>
+	
+	<a href='javascript:void(0);' onclick='download_img<?php echo $dntype; ?>("<?php echo $eachallmemberinfo['image0']; ?>")'>
+	
+	<?php
+		if($dntype == 1)
+		{ ?>
+			Picture Card
+		<?php } else
+		{ ?> <img alt='img_alt_text' height=75 width=75 src="<?php echo base_url()?>media/cards_image/large/<?php echo $eachallmemberinfo['image0']; ?>" ></a>
+		<?php } ?>
+	</td>
+    <td><a href='javascript:void(0);' onclick='download_pdf<?php echo $dntype; ?>("<?php echo $eachallmemberinfo['img_id'].'_card.pdf'; ?>")'>
     Download the pdf</a></td>
-    <td><a href='javascript:void(0);' onclick='download_zip("<?php echo $eachallmemberinfo['img_id'].'.zip'; ?>")'>
+    <td><a href='javascript:void(0);' onclick='download_zip<?php echo $dntype; ?>("<?php echo $eachallmemberinfo['img_id'].'.zip'; ?>")'>
     Download the zip</a></td>
-    <td><a class="receiver" id="popup_<?php echo $eachallmemberinfo['img_id'];?>" href="#popupdiv" pic="<?php echo $eachallmemberinfo['img_id'];?>">Receiver Details</a>
+    <td><a class="receiver" type="<?php echo $dntype; ?>" id="popup_<?php echo $eachallmemberinfo['img_id']; ?>" href="#popupdiv" pic="<?php echo $eachallmemberinfo['img_id'];?>">Receiver Details</a>
     <script type="text/javascript">
 	$(document).ready(function() {
-		$("#popup_<?php echo $eachallmemberinfo['img_id'];?>").fancybox();
+		$("#popup_<?php echo $eachallmemberinfo['img_id']; ?>").fancybox();
 	});
     </script>
     </td>
@@ -315,7 +391,7 @@ foreach($allmemberinfo as $eachallmemberinfo)
 		<?php
 			if($eachallmemberinfo['dispatch_to']==0)
 			{ ?>
-		<a class="dispatch" pic="<?php echo $eachallmemberinfo['img_id'];?>"  id="dispatch_<?php echo $eachallmemberinfo['img_id']; ?>" href="#popupdiv" >Dispatch</a>
+		<a class="dispatch" type="<?php echo $dntype; ?>" pic="<?php echo $eachallmemberinfo['img_id'];?>"  id="dispatch_<?php echo $eachallmemberinfo['img_id']; ?>" href="#popupdiv" >Dispatch</a>
 			<?php
 			} else {?>
 			<span style='color:#000;font-weight:bold;'>Dispatched</span>			

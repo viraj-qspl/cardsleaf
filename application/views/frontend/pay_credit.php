@@ -70,7 +70,7 @@
 
 
 </script>
-<style type="text/css">
+<!-- style type="text/css">
     .login_body {
         background: #fff;
     }
@@ -147,10 +147,7 @@
         line-height: 18px;
         padding: 5px 8px;
     }
-</style>
-
-<title><?php echo $site_title; ?></title>
-<section id="body">
+</style -->
 <?php
 
 	
@@ -162,11 +159,11 @@
 	}
 	
 
-	//if(isset($this->session->userdata('paypalSubmit')))	
-	//	print_r($this->session->item('paypalSubmit'));
 
 
 ?>
+
+<title><?php echo $site_title; ?></title>
 
     <div class="login_body">
         <?php if ($this->session->userdata('error_msg_login')) { ?>
@@ -196,6 +193,309 @@
             $this->session->unset_userdata('error_msg1');
         }
         ?>
+</div>
+
+
+
+<div class="container">
+<div class="content">
+<h2>Payment</h2>
+
+<div class="payment clearfix">
+<div class="pay_form">
+
+<div class="pay">
+<div class="card"><a href="javascript:void(0)" style="cursor:auto"><img src="<?php echo $this->config->item('theme_url') ?>newimages/visa_logo.jpg"></a></div>
+<div class="card"><a href="javascript:void(0)" style="cursor:auto"><img src="<?php echo $this->config->item('theme_url') ?>newimages/mastercard.jpg"></a></div>
+<div class="card"><a href="javascript:void(0)" style="cursor:auto"><img src="<?php echo $this->config->item('theme_url') ?>newimages/american_express.jpg"></a></div>
+<div class="card"><a href="javascript:void(0)" style="cursor:auto"><img src="<?php echo $this->config->item('theme_url') ?>newimages/discover.jpg"></a></div>
+<div class="clear"></div>
+</div><!--pay-->
+
+	<form method="POST" action="<?php echo base_url(); ?>subscribe/payment_receipt" name="DoDirectPaymentForm" id="address_form" autocomplete="off">
+		<input type="hidden" name="amount" value="<?php echo $price = ($price!='')?$price:$paypalSubmit['amount']; ?>" />
+		<input name="pack" id="pack" type="hidden" value="<?php echo $pack = ($pack!='')?$pack:$paypalSubmit['pack'];?>" />
+
+<div class="pay">
+<div class="lab"><span class="red">*</span>Card Type</div>
+<div class="set_input2">
+                          
+<?php
+	if(isset($paypalSubmit['cardtype']))
+		$cardtype = $paypalSubmit['cardtype'];
+	else
+		$cardtype = 'visa';
+?>
+<select name="cardtype" class="select_input">
+	<option value="visa" <?php if($cardtype=='visa') echo "selected='selected'";?> >Visa</option>
+	<option value="MasterCard" <?php if($cardtype=='MasterCard') echo "selected='selected'";?>>Master Card</option>
+	<option value="AmericanExpress"  <?php if($cardtype=='AmericanExpress') echo "selected='selected'";?>>American Express</option>
+	<option value="Discover" <?php if($cardtype=='Discover') echo "selected='selected'";?> >Discover</option>
+</select>
+
+</div><!--set_input-->
+<div class="clear"></div>
+</div><!--pay-->
+
+
+
+
+
+
+<div class="pay">
+<div class="lab"><span class="red">*</span>Card Number</div>
+<div class="set_input1">
+<input type="text" id="cardnumber" class="textfield pay_input" name="cardnumber" style="width: 250px;" value="<?php if(isset($paypalSubmit['cardnumber'])) echo $paypalSubmit['cardnumber']; ?>" />
+</div><!--set_input-->
+<div class="clear"></div>
+</div><!--pay-->
+
+
+<div class="pay">
+		<div class="lab"><span class="red">*</span>Expiration Date</div>
+			<div class="set_input3">
+			
+			<select name="cardmonth"  class="select_input">
+			<?php
+				if(isset($paypalSubmit['cardmonth']))
+					$cardmonth = $paypalSubmit['cardmonth'];
+				else
+					$cardmonth = '1';																				
+			?>
+				<option <?php if($cardmonth=='1') echo "selected='selected'";?> value=1>01</option>
+				<option <?php if($cardmonth=='2') echo "selected='selected'";?> value=2>02</option>
+				<option <?php if($cardmonth=='3') echo "selected='selected'";?> value=3>03</option>
+				<option <?php if($cardmonth=='4') echo "selected='selected'";?> value=4>04</option>
+				<option <?php if($cardmonth=='5') echo "selected='selected'";?> value=5>05</option>
+				<option <?php if($cardmonth=='6') echo "selected='selected'";?> value=6>06</option>
+				<option <?php if($cardmonth=='7') echo "selected='selected'";?> value=7>07</option>
+				<option <?php if($cardmonth=='8') echo "selected='selected'";?> value=8>08</option>
+				<option <?php if($cardmonth=='9') echo "selected='selected'";?> value=9>09</option>
+				<option <?php if($cardmonth=='10') echo "selected='selected'";?> value=10>10</option>
+				<option <?php if($cardmonth=='11') echo "selected='selected'";?> value=11>11</option>
+				<option <?php if($cardmonth=='12') echo "selected='selected'";?> value=12>12</option>
+			</select>			
+			</div><!--set_input3-->
+
+		<div class="set_input4">
+		
+		
+<select name="cardyear"  class="select_input">
+<?php
+	if(isset($paypalSubmit['cardyear']))
+		$cardyear = $paypalSubmit['cardyear'];
+	else
+		$cardyear = ''
+?>
+	<?php for ($i = date("Y"); $i <= date("Y") + 15; $i++) { ?>
+		<option <?php if($cardyear==$i) echo "selected='selected'";?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
+<?php } ?>		
+</select>		
+		
+		</div><!--set_input4-->
+		
+		<div class="clear"></div>
+		</div><!--pay-->
+		
+
+
+		<div class="pay">
+		<div class="lab"><span class="red">*</span>Card Security Code</div>
+		<div class="set_input5">
+			<input type="password" id="cardcvv" class="textfield pay_input" name="cardcvv"  maxlength="4" size="4"/>
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		<div class="pay">
+		<div class="lab">Amount</div>
+		<div class="set_input3">
+		<?php
+			if(isset($paypalSubmit['amount']))
+				$price = $paypalSubmit['amount'];		
+		?>
+
+		<div class="price">$<?php echo $price; ?></div>
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+
+		<div class="pay">
+		<div class="lab"><span class="red">*</span>First Name</div>
+		<div class="set_input1">
+		<input name="firstname" id="firstname" type="text" value="<?php if(isset($paypalSubmit['firstname'])) echo $paypalSubmit['firstname'] ?>" class="textfield pay_input"  maxlength="32" />
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		<div class="pay">
+		<div class="lab"><span class="red">*</span>LastName</div>
+		<div class="set_input1">
+		<input name="lastname" id="lastname" type="text" value="<?php if(isset($paypalSubmit['lastname'])) echo $paypalSubmit['lastname'] ?>" class="textfield pay_input" maxlength="32" />
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		
+		<div class="pay">
+		<div class="lab">Address 1</div>
+		<div class="set_input1">
+		<input value="<?php if(isset($paypalSubmit['address1'])) echo $paypalSubmit['address1'] ?>"  type="text" class="textfield pay_input" name="address1" id="address1" />
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		<div class="pay">
+		<div class="lab">Address 2</div>
+		<div class="set_input1">
+		<input value="<?php if(isset($paypalSubmit['address2'])) echo $paypalSubmit['address2'] ?>" type="text" class="textfield pay_input" name="address2" id="address2" style="width: 250px;"/>
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		<div class="pay">
+		<div class="lab">Country</div>
+		<div class="set_input2">
+
+		
+	<select name="select2" id="r_country" class="select_input">										
+	<?php foreach ($all_country as $country) { 										
+	
+	
+	
+	if(isset($paypalSubmit['select2']))	
+	{
+		if($paypalSubmit['select2'] == $country['iso_code_2'] )
+			$selected = "selected='selected'";
+		else
+			$selected = '';
+
+			
+	}
+	elseif($country['iso_code_2']=='US')
+			$selected = "selected='selected'";
+	else
+			$selected = '';
+			
+			
+	?>
+		<option value="<?php echo $country['iso_code_2']; ?>" <?php echo $selected; ?> ><?php echo $country['country_name']; ?></option>
+<?php } ?>
+</select>		
+		
+		
+		
+		
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		
+		
+		<div class="pay">
+		<div class="lab">State</div>
+		<div class="set_input2">
+		
+		<?php
+	
+			$displayState = 'block';
+			$displayState2 = 'none';
+	
+		if(isset($paypalSubmit['select2']))
+		{	
+			if($paypalSubmit['select2']!='US')
+			{
+				$displayState = 'none';
+				$displayState2 = 'block';
+			}	
+
+		}	
+	?>
+		
+		
+		
+		
+		   <select name="r_state" id="r_state" class="textfield select_input" style="display:<?php echo $displayState ?>" >
+											<option value="">Select State</option>
+
+											<?php foreach ($all_state_us as $eachStateUs) { ?>
+											<?php 
+												$selState = (isset($paypalSubmit['r_state']))?$paypalSubmit['r_state']:'';
+											?>
+												<option <?php if($selState==$eachStateUs['code']) echo "selected='selected'"; ?> value="<?php echo $eachStateUs['code']; ?>" ><?php echo $eachStateUs['name']; ?></option>
+
+	<?php } ?>
+			</select>
+										
+			<input  value="<?php if(isset($paypalSubmit['or_state'])) echo $paypalSubmit['or_state'];  ?>" type="text" class="textfield pay_input" name="or_state" id="or_state" style="width: 250px;display:<?php echo $displayState2; ?>"/>
+			
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		<div class="pay">
+		<div class="lab">City</div>
+		<div class="set_input1">
+		<input value="<?php if(isset($paypalSubmit['city'])) echo $paypalSubmit['city'];  ?>" type="text" class="textfield pay_input" name="city" id="city" />
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		<div class="pay">
+		<div class="lab">Zipcode</div>
+		<div class="set_input1">
+		<input value="<?php if(isset($paypalSubmit['zip'])) echo $paypalSubmit['zip'];  ?>" type="text" class="textfield pay_input" name="zip" id="zip" />
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+
+		<div class="pay">
+		<div class="lab">&nbsp;</div>
+		<div class="set_input1">
+		<div class="signup"><input type="submit" name="Submit52" class="signup_btn" value="Submit" style="float:left;"/></a>
+		</div>
+		</div><!--set_input-->
+		<div class="clear"></div>
+		</div><!--pay-->
+				<?php
+					if(isset($paypalSubmit['crimea']))
+						$crimea = $paypalSubmit['crimea'];
+					else
+						$crimea = $price*400*800;
+					
+				?>
+				<input type="hidden" value="<?php echo $crimea; ?>" name="crimea" /> <?php // Price is taken from here ?>		
+		</form>
+		</div><!--pay_form-->
+		<div class="clear"></div>
+		</div><!--payment-->
+
+		<div class="secure">
+		<h3><img src="<?php echo $this->config->item('theme_url'); ?>newimages/lock_icon.jpg">&nbsp;Secure Payment</h3>
+		<p>Your payment information is encrypted before transfer. For your convenience, company will store your encrypted payment information for future orders. You can manage your payment information in your account settings.</p>
+
+		</div><!--secure-->
+
+
+		</div><!--content-->
+		<div class="clear"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php /**		
         <div class="mid_container">
             <div class="credit_box3">	
                 <div class="login_form"> 
@@ -206,15 +506,15 @@
                             <li><a style="cursor:auto;"><img src="<?php echo $this->config->item('theme_url') ?>images/american_express_card.png" /></a></li>
                             <li><a style="cursor:auto;"><img src="<?php echo $this->config->item('theme_url') ?>images/discover_card.png" /></a></li>
                         </ul>
-                    </div>
+                    </div> 
                     <div class="clear"></div>       	
                     <form method="POST" action="<?php echo base_url(); ?>subscribe/payment_receipt" name="DoDirectPaymentForm" id="address_form" autocomplete="off">
                         <input type="hidden" name="amount" value="<?php echo $price = ($price!='')?$price:$paypalSubmit['amount']; ?>" />
-			<input name="pack" id="pack" type="hidden" value="<?php echo $pack = ($pack!='')?$pack:$paypalSubmit['pack'];?>" />
+						<input name="pack" id="pack" type="hidden" value="<?php echo $pack = ($pack!='')?$pack:$paypalSubmit['pack'];?>" />-->
                         <table width="100%" border="0" cellspacing="0" cellpadding="0"  class="credit_box" style="float: left; width: 70%;">
                       <!--<tr>
                         <th colspan="2"><h1 style="margin-top: 0; border-top: 0;">Credit Card</h1></th>
-                        </tr>-->
+                        </tr>
                             <tr>
                                 <td><label class="righttxt"><span class="red">*</span> Card Type </label></td>
                                 <td><div class="dropdown">
@@ -276,7 +576,7 @@
                                         </select>
                                     </div>				</td>
                             </tr>
-                            <tr>
+                            <tr
                                 <td><label class="righttxt"><span class="red">*</span> Card Security Code</label></td>
                                 <td><input type="password" id="cardcvv" class="textfield" name="cardcvv" style="width:40px" maxlength="4" size="4"/></td>
                             </tr>
@@ -296,7 +596,7 @@
                             </tr>
                             <tr>
                                 <td><label class="righttxt"><span class="red">*</span> Last Name</label></td>
-                                <td><input name="lastname" id="lastname" type="text" value="<?php if(isset($paypalSubmit['lastname'])) echo $paypalSubmit['lastname'] ?>" class="textfield" maxlength="32" style="width: 250px;"/></td>
+                                <td><input name="lastname" id="lastname" type="text" value="<?php if(isset($paypalSubmit['lastname'])) echo $paypalSubmit['lastname'] ?>" class="textfield" maxlength="32" style="width: 250px;"/></td>>
                             </tr>
 
 
@@ -408,12 +708,8 @@
                 </form>
             </div>
         </div>
-        <div class="clear"/></div>
-</div>
+ **/ ?>      
 
-</div>
-<div class="clear"></div>
 
-</section>
-<div class="clear"></div>
+
 

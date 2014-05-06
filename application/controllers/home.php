@@ -464,10 +464,8 @@ class Home extends CI_Controller
 		  $ext = end($imageExp);		  
 		  unset($imageExp[count($imageExp)-1]);		  
 		  $imageName = implode('.',$imageExp).'_thumb.'.$ext;		  
-		  
-		  
-		  
-		  $newImage = $this->config->item('base_url').'/media/cards_image/thumb/'.$imageName;
+
+		  $newImage = str_replace('/large/','/thumb/',$imageName);
 
 		   
 		  
@@ -510,12 +508,10 @@ class Home extends CI_Controller
 					$pdf_html = strstr($temp,'>',true);
 					$pdf_html = $pdf_html.'/>';
 					$pdf_html = str_replace('img','img style="position:relative;display:block;top:'.$paddingTop .';left:'.$paddingLeft .'"',$pdf_html);
-					
+
 					
 				}
-				
 
-				
 				
 				$pdf_html = str_replace($m[1][0],$newImage,$pdf_html);
 				
@@ -548,7 +544,7 @@ class Home extends CI_Controller
 			$pdf_content = $pdf_html.$pdf_html1.$pdf_html2;
 			
 			
-
+			
 				   		   
 		   /** PDF CREATION CODE END **/
 	       

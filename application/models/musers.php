@@ -542,6 +542,15 @@ class MUsers extends CI_Model
 	}
 	
 	
+	function dispatch2($vendorId,$imageId)
+	{
+		$this->db->where('pic_id',$imageId);
+		$this->db->update('cards_pic',array('dispatch_to'=>$vendorId,'dispatch'=>1));
+		return $this->db->affected_rows();
+	}	
+	
+	
+	
 	
 	function getUserById($userid)
 	{		
@@ -865,7 +874,7 @@ class MUsers extends CI_Model
 		);
 		
 	//	if(isset($pic_receiver['keepadd']))
-	//		$data['active_status'] = 1;
+			$data['active_status'] = 1;
 		
 		$this->db->insert('pic',$data);
 
@@ -948,9 +957,11 @@ class MUsers extends CI_Model
 	
 	function finishedPictureInfo($finpicInfo)
 	{
-		$this->db->select();
+		$this->db->select('cards_pic.*,cards_picimg.*,c.*,s.name as sname,c.country_name as cname');
 		$this->db->from('cards_pic');
 		$this->db->join('cards_picimg','cards_pic.pic_id = cards_picimg.pic_id');
+		$this->db->join('country as c','c.country_id = cards_pic.country');
+		$this->db->join('state` as s','s.state_id = cards_pic.state');
 		$this->db->where('cards_pic.pic_id',$finpicInfo);
 		return $this->db->get()->result_array();
 		

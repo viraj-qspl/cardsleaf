@@ -1,3 +1,11 @@
+<style type="text/css">
+
+div#img1.view1.page div {
+	border: none !important;
+}
+
+</style>
+
 <script type="text/javascript" src="<?php echo $this->config->item('theme_url')?>js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $this->config->item('theme_url')?>js/jquery.form.js"></script>
 

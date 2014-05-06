@@ -13,10 +13,43 @@ $(document).ready(function() {
 	margin: 50px auto;
 }
 </style>
-<div class="mid_wrapper">	
+
+
+
+
+
+
+
+
+
+<div class="container">
+<div class="content distance">
+<div class="side clearfix">
+<div class="load_pic"><div class="about_pic"><img src="<?php echo $this->config->item('theme_url').'new'; ?>images/thankyou_pic.jpg"></div></div><!--life_side-->
+
+<?php 
+	if(isset($downpict))
+	{
+?>	
+	<div class="download"><a href="<?php echo $this->config->item('base_url') ?>cards/finishedPicture" ><div class="download_btn">Download Your Card</div></a></div>
+<?php
+	}else{ ?>
+
+	<div class="download"><a href="javascript:void(0)" name="dnpdf" id="dnpdf" ><div class="download_btn">Download Your Card</div></a></div>
+	<?php } ?>
+	
+	
+</div><!--side-->
+
+</div><!--content-->
+<div class="clear"></div>
+</div><!--container-->
+
+
+<!-- div class="mid_wrapper">	
 <div class="login_holderbox" style="margin: 120px auto 0 auto;">
     	<div class="login_hrader">
-        	<!--<a href="<?php echo base_url();?>"><img src="<?php echo $this->config->item('theme_url')?>images/logo2.jpg" width="134" class="logo2" alt="Cardsleaf"/></a>-->
+
             <div class="thanktxt">Thank You</div>
         </div>
         <div class="login_form" style="height: 150px; margin: 70px 0 0 0 !important;">
@@ -29,10 +62,5 @@ $(document).ready(function() {
 	</div>
         <div class="clear"></div>
 </div>
-</div>
-</div>
+</div -->
 
-				
-<div class="clear"></div>
-</section>
-<div class="clear"></div>

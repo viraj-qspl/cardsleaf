@@ -1,3 +1,15 @@
+<style type="text/css">
+
+.preview_card ul {
+margin-left:116px !important;
+}
+.preview_card ul li {
+height: 94px !important;
+}
+
+</style>
+
+
 <script type="text/javascript" src="<?php echo $this->config->item('theme_url')?>js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo $this->config->item('theme_url')?>js/jquery.form.js"></script>
 

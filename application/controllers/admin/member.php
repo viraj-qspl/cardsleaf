@@ -127,6 +127,128 @@ class member extends CI_Controller
 		
 	}
 	
+	 public function dnimg1()
+	{
+		/* $img = $this->uri->segment(4);
+		$ext = '.'.end(explode(".",$img));
+		
+		$data = file_get_contents(base_url()."media/cards_image/large/".$img); // Read the file's contents
+		$name = time().$ext;
+		
+		force_download($name, $data); */ 	
+	} 
+	
+	public function dnpdf1()
+	{
+		$pdffile = $this->uri->segment(4);
+		//$ext = '.'.end(explode(".",$pdffile));
+		
+		$pdffile = explode('_',$pdffile);
+		
+		$pdffile = $pdffile[0].'.pdf';
+
+		$data = file_get_contents(base_url()."media/pics/pdf/".$pdffile); // Read the file's contents
+		//$name = time().$ext;
+		
+		force_download($pdffile, $data); 	
+	}
+	
+	public function dnzip1()
+	{
+		
+		$time = time();
+		
+		$zip = new ZipArchive();
+		
+		$imageId = explode('.',$this->uri->segment(4));
+		$imageId = $imageId[0];
+		$receiverDetails = $this->musers->finishedPictureInfo($imageId);
+		
+		
+		
+
+		$fileName = $this->config->item('base_path').'media/temp/temp'.$time.'.zip';
+
+		
+		if ($zip->open($fileName, ZipArchive::CREATE)!==TRUE) {
+				exit("cannot open <$filename>\n");
+		}	
+		
+	
+		
+		$details = 'Name:'.$receiverDetails[0]['name'].' '.$receiverDetails[0]['lname'].PHP_EOL
+						   .'Delivery Date:'.$receiverDetails[0]['delivery_dt'].PHP_EOL
+						   .'Country:'.$receiverDetails[0]['cname'].PHP_EOL
+						   .'Address:'.$receiverDetails[0]['reciver_add1'].' '.$receiverDetails[0]['reciver_add2'].PHP_EOL
+						   .'State:'.$receiverDetails[0]['sname'].PHP_EOL
+						   .'City:'.$receiverDetails[0]['city'].PHP_EOL
+						   .'Zip:'.$receiverDetails[0]['zipcode'].PHP_EOL
+						   .'Contact Number:'.$receiverDetails[0]['contactno'].PHP_EOL;
+						
+						
+				$zip->addFromString("ReceiverDetails.txt",$details);
+				
+				foreach($receiverDetails as $key=>$value)
+				{
+					$imageName = explode('.',$value['image_name']);
+					$zip->addFile($this->config->item('base_path').'media/pics/'.$value['image_name'],"image".$key.".".end($imageName));
+				}
+				
+				$zip->addFile($this->config->item('base_path').'media/pics/pdf/'.$imageId.'.pdf',"layout.pdf");
+				
+				$zip->close();
+		
+				$data = file_get_contents(base_url()."media/temp/temp".$time.".zip");
+				
+				
+				unlink($this->config->item('base_path').'media/temp/temp'.$time.'.zip');
+				force_download($this->uri->segment(4),$data);	
+		
+		
+		/*
+		$zipfile = $this->uri->segment(4);
+		//$ext = '.'.end(explode(".",$img));
+		
+		$data = file_get_contents(base_url()."media/cards_image/zip/".$zipfile); // Read the file's contents
+		//$name = time().$ext;		
+		
+		force_download($fileName, $data); 
+		*/
+		
+	}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	function carddispatch()
 	{
 		
